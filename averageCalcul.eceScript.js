@@ -130,19 +130,18 @@ function modifyTable($table) {
     var $rows = $table.find("tr");
     $rows.each( (index, item) => {
         let parent = item.parentNode;
-        let grandParent = parent.parentNode;
-
-        if(grandParent.tagName === 'THEAD') {
+        if(parent.tagName === 'THEAD') {
             if(index === 1) {
                 let newTh = document.createElement('th');
                 newTh.classList.add("entete-average");
-                newTh.innertText = "Moyenne"
+                newTh.innerText = "Moyenne"
                 item.appendChild(newTh);
             }
             return;
         }
 
         let newTd = document.createElement('td');
+        newTd.classList.add("average");
         newTd.classList.add(parent.classList.contains("item-ens") ? "item-ens" : parent.classList.contains("item-fpc") ? "item-fpc" : "item-ev1");
         item.appendChild(newTd);
     });
@@ -158,6 +157,4 @@ function modifyTable($table) {
         calculateEachAverage();
         console.log(databaseRes);
     });
-
-    // Your code here...
 })();
