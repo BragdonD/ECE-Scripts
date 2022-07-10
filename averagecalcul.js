@@ -10,24 +10,51 @@
 // ==/UserScript==
 
 var $ = window.jQuery;
+
+var nbYears = -1;
+var nbSemesters = -1;
+var nbModules = -1;
 var nbSubject = -1;
+
 /** It is the variable that will store the parsing of the table. It will acts as a result of the database. **/
-var databaseRes = []
+var years = [];
+var semesters = [];
+var modules = [];
+var subjects = [];
+
+const yearIdentificationStr = "Année";
+const semestreIdentificationStr = "Semestre";
+const moduleIdentificationStr = "Module";
 
 const gradeRegex = /([0-9]{1,2},[0-9]{1,2}) (?:\([0-9]{1,2}(?:\.[0-9]{1,2})?\%\))?/g
 const parseGradeRegex = /([0-9]{1,2},[0-9]{1,2})|(?:[0-9]{1,2}(?:.[0-9]{1,2})?)?/g
 
-function CreateNewSubjectInDbRes(name, $parent) {
-    databaseRes.push({ sub: name, grades: {}, row: $parent });
+function createYear(number, $parent) {
+    years.push({year: number, row: $parent, coeff: 1, average: 0});
+    nbYears += 1;
+}
+
+function createSemester(number, $parent) {
+    semesters.push({number: number, nbYears: nbYears, row: $parent, coeff: 1, average: 0});
+    nbSemesters += 1;
+}
+
+function createModule(name, $parent) {
+    modules.push({name: name, semestreId: nbSemesters, subject: [], coeff: 0, average: 0});
+    nbModules += 1;
+}
+
+function CreateNewSubject(name, $parent) {
+    subjects.push({ sub: name, grades: {}, moduleId: nbModules, row: $parent });
     nbSubject += 1;
 }
 
 function parseSubject($children, $parent) {
     let subjectName = $children[0].textContent;
-    CreateNewSubjectInDbRes(subjectName, $parent);
+    CreateNewSubject(subjectName, $parent);
     if($children[1].classList.contains("ponderation")) {
         let subjectCoeff = $children[1].textContent;
-        databaseRes[nbSubject].coeff = subjectCoeff;
+        subjects[nbSubject].coeff = subjectCoeff;
     }
 }
 
@@ -56,15 +83,28 @@ function parseGrades($children, $parent){
 
     let nameToInsert = subjectPartName.includes(continu) ? continu : subjectPartName.includes(exam) ? exam : project;
 
-    databaseRes[nbSubject]["grades"][nameToInsert] = {
+    subjects[nbSubject]["grades"][nameToInsert] = {
         grades: parseGrade(subjectPartGrades.match(gradeRegex)),
         coeff: subjectPartCoeff,
         row: $parent
     }
 }
 
+
+
 function parseRow($row, index) {
     let $children = $row.querySelectorAll("td");
+    if($children[0].classList.contains("item-ens")) {
+        if($children[0].textContent.includes(yearIdentificationStr)) {
+            createYear(nbYears + 2, $row);
+        }
+        else if($children[0].textContent.includes(semestreIdentificationStr)) {
+            createSemester(nbSemesters + 2, $row);
+        }
+        else if($children[0].textContent.includes(moduleIdentificationStr)) {
+            createModule($children[0].textContent,$row);
+        }
+    }
     if($children[0].classList.contains("item-fpc")) {
         parseSubject($children, $row);
     }
@@ -76,7 +116,8 @@ function parseRow($row, index) {
 function parseTable($table) {
     var $rows = $table.find("tr");
     $rows.each( (index, item) => {
-        if(item.classList.contains("slave")) {
+        if(item.classList.contains("slave") ||
+           item.classList.contains("master")) {
             parseRow(item, index);
         }
     });
@@ -95,7 +136,7 @@ function equalizeGradesType(type) {
 }
 
 function equalizeGrades() {
-    databaseRes.forEach((item) => {
+    subjects.forEach((item) => {
         let nbOfContinuGrades = item.grades.Continu?.length;
         let nbOfExamGrades = item.grades.Examen?.length;
         let nbOfProjectGrades = item.grades.Project?.length;
@@ -105,7 +146,7 @@ function equalizeGrades() {
     });
 }
 
-function calculateAverage(type) {
+function calculateGradesAverage(type) {
     if(type === undefined) return;
     let average = 0;
     type.grades.forEach((item) => {
@@ -114,11 +155,17 @@ function calculateAverage(type) {
     type.average = parseFloat(average);
 }
 
-function calculateEachAverage() {
-    databaseRes.forEach((item) => {
-        calculateAverage(item.grades.Continu);
-        calculateAverage(item.grades.Examen);
-        calculateAverage(item.grades.Project);
+function calculateEachGradesAverage() {
+    subjects.forEach((item) => {
+        calculateGradesAverage(item.grades.Continu);
+        calculateGradesAverage(item.grades.Examen);
+        calculateGradesAverage(item.grades.Project);
+    });
+}
+
+function calculateSubjectAverage() {
+    subjects.forEach((item) => {
+        item.average = item.grades.Continu
     });
 }
 
@@ -152,7 +199,6 @@ function fillContinu(average, elem) {
 }
 
 function displayAverage(average) {
-    console.log(average);
     if(average === undefined) return;
     let Children = average.row.children;
     if(Children !== undefined) {
@@ -161,7 +207,7 @@ function displayAverage(average) {
 }
 
 function fillNewTd() {
-    databaseRes.forEach((item) => {
+    subjects.forEach((item) => {
         displayAverage(item.grades.Continu);
         displayAverage(item.grades.Examen);
         displayAverage(item.grades.Project);
@@ -183,8 +229,11 @@ function removeUnwanted() {
         modifyTable($table);
         parseTable($table);
         equalizeGrades();
-        calculateEachAverage();
-        console.log(databaseRes);
+        calculateEachGradesAverage();
+        console.log(subjects);
+        console.log(years);
+        console.log(semesters);
+        console.log(modules);
         fillNewTd();
     });
 })();
