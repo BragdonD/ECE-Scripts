@@ -101,12 +101,8 @@ function equalizeGrades() {
         let nbOfProjectGrades = item.grades.Project?.length;
         equalizeGradesType(item.grades.Continu);
         equalizeGradesType(item.grades.Examen);
-        equalizeGradesType(item.grades.Projecy);
+        equalizeGradesType(item.grades.Project);
     });
-}
-
-function displayAverage() {
-
 }
 
 function calculateAverage(type) {
@@ -122,7 +118,7 @@ function calculateEachAverage() {
     databaseRes.forEach((item) => {
         calculateAverage(item.grades.Continu);
         calculateAverage(item.grades.Examen);
-        calculateAverage(item.grades.Projecy);
+        calculateAverage(item.grades.Project);
     });
 }
 
@@ -130,6 +126,8 @@ function modifyTable($table) {
     var $rows = $table.find("tr");
     $rows.each( (index, item) => {
         let parent = item.parentNode;
+        let children = item.querySelectorAll("td");
+        let firstChild = children[0];
         if(parent.tagName === 'THEAD') {
             if(index === 1) {
                 let newTh = document.createElement('th');
@@ -142,8 +140,38 @@ function modifyTable($table) {
 
         let newTd = document.createElement('td');
         newTd.classList.add("average");
-        newTd.classList.add(parent.classList.contains("item-ens") ? "item-ens" : parent.classList.contains("item-fpc") ? "item-fpc" : "item-ev1");
+        newTd.classList.add(firstChild.classList.contains("item-ens") ? "item-ens" : firstChild.classList.contains("item-fpc") ? "item-fpc" : "item-ev1");
+        newTd.setAttribute("style", "font-weight: 400!important; text-align: center; border-right: 1px solid #d3d3d3;");
         item.appendChild(newTd);
+    });
+}
+
+function fillContinu(average, elem) {
+    if(average === undefined) return;
+    elem.innerText = average;
+}
+
+function displayAverage(average) {
+    console.log(average);
+    if(average === undefined) return;
+    let Children = average.row.children;
+    if(Children !== undefined) {
+        fillContinu(average.average.toFixed(2), Children[Children.length-1]);
+    }
+}
+
+function fillNewTd() {
+    databaseRes.forEach((item) => {
+        displayAverage(item.grades.Continu);
+        displayAverage(item.grades.Examen);
+        displayAverage(item.grades.Project);
+    });
+}
+
+function removeUnwanted() {
+    $("#resultat-note").arrive(".releve_note", function() {
+        let $elem = $(this);
+        $elem.remove();
     });
 }
 
@@ -151,10 +179,12 @@ function modifyTable($table) {
     'use strict';
     $("#resultat-note").arrive("#table_note", function() {
         var $table = $(this);
+        removeUnwanted();
         modifyTable($table);
         parseTable($table);
         equalizeGrades();
         calculateEachAverage();
         console.log(databaseRes);
+        fillNewTd();
     });
 })();
