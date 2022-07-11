@@ -146,6 +146,7 @@ function equalizeGrades() {
 
 function calculateGradesAverage(type) {
     if(type === undefined) return;
+    if(type.grades.length === 0) type.average = undefined;
     let average = 0;
     type.grades.forEach((item) => {
        average += (item.grade * item.coeff)
@@ -161,11 +162,12 @@ function calculateEachGradesAverage() {
     });
 }
 
-function transformToFloatCoeffBySubject() {
+function transformToFloatCoeffForEachSubject() {
     let modifyCoeff = (type) => {
         if(type === undefined) return;
         type.coeff = type.coeff?.match(parseGradeRegex);
         type.coeff = type.coeff?.filter(str => str !== "")[0];
+        type.coeff = parseFloat(type.coeff);
     }
     subjects.forEach((item) => {
         modifyCoeff(item.grades.Continu);
@@ -176,29 +178,75 @@ function transformToFloatCoeffBySubject() {
 
 function equalizeSubjectCoeff(subject) {
     let coeff = [];
+    let continu = false;
+    let exam = false;
+    let project = false;
     if(subject.Continu !== undefined) {
         if(subject.Continu?.grades.length > 0) {
             coeff.push(subject.Continu?.coeff);
+            continu = true;
         }
     }
     if(subject.Examen !== undefined) {
         if(subject.Examen?.grades.length > 0) {
             coeff.push(subject.Examen?.coeff);
+            exam = true;
         }
     }
     if(subject.Project !== undefined) {
         if(subject.Project?.grades.length > 0) {
             coeff.push(subject.Project?.coeff);
+            project = true;
         }
     }
 
     let finalCoeff = coeff.reduce((i, n) => { return i + n});
-    subject.Project.coeff = subject.Project?.coeff / finalCoeff;
+    if(subject.Continu !== undefined) {
+        subject.Continu.coeff = subject.Continu.coeff / finalCoeff;
+    }
+    if(subject.Examen !== undefined) {
+        subject.Examen.coeff = subject.Examen.coeff / finalCoeff;
+    }
+    if(subject.Project !== undefined) {
+        subject.Project.coeff = subject.Project.coeff / finalCoeff;
+    }
+    return continu || exam || project;
 }
 
 function calculateSubjectAverage() {
     subjects.forEach((item) => {
-        item.average = item.grades.Continu
+        if(equalizeSubjectCoeff(item.grades) === false) {
+            item.average = undefined;
+            return;
+        }
+        item.average = 0;
+        item.average += (item.grades.Continu !== undefined ? (item.grades.Continu.average * item.grades.Continu.coeff) : 0);
+        item.average += (item.grades.Examen !== undefined ? (item.grades.Examen.average * item.grades.Examen.coeff) : 0);
+        item.average += (item.grades.Project !== undefined ? (item.grades.Project.average * item.grades.Project.coeff) : 0);
+    });
+}
+
+function calculateModulesAverage() {
+    const getAverage = (coeffs, grades) => {
+        let val = 0;
+        let coeff = 0;
+        for(let i=0; i < coeffs.length; i++){
+            if(grades[i] !== undefined) {
+                val += coeffs[i]*grades[i];
+                coeff += coeffs[i];
+            }
+        }
+        return val/coeff;
+    }
+    modules.forEach((module) => {
+        let coeffs = [];
+        let grades = [];
+        subjects.forEach((item) => {
+            coeffs.push(item.coeff);
+            grades.push(item.average);
+        });
+        module.average = getAverage(coeffs, grades);
+        module.coeff = coeffs.reduce((i, n) => { return i + n});
     });
 }
 
@@ -226,24 +274,25 @@ function modifyTable($table) {
     });
 }
 
-function fillContinu(average, elem) {
+function fillElem(average, elem) {
     if(average === undefined) return;
     elem.innerText = average;
 }
 
-function displayAverage(average) {
+function displayGradeAverage(average) {
     if(average === undefined) return;
-    let Children = average.row.children;
-    if(Children !== undefined) {
-        fillContinu(average.average.toFixed(2), Children[Children.length-1]);
+    let children = average.row.children;
+    if(children !== undefined) {
+        fillElem(average.average.toFixed(2), children[children.length-1]);
     }
 }
 
 function fillNewTd() {
     subjects.forEach((item) => {
-        displayAverage(item.grades.Continu);
-        displayAverage(item.grades.Examen);
-        displayAverage(item.grades.Project);
+        displayGradeAverage(item);
+        displayGradeAverage(item.grades.Continu);
+        displayGradeAverage(item.grades.Examen);
+        displayGradeAverage(item.grades.Project);
     });
 }
 
@@ -263,7 +312,9 @@ function removeUnwanted() {
         parseTable($table);
         equalizeGrades();
         calculateEachGradesAverage();
-        transformToFloatCoeffBySubject();
+        transformToFloatCoeffForEachSubject();
+        calculateSubjectAverage();
+        calculateModulesAverage();
         console.log(subjects);
         console.log(years);
         console.log(semesters);
