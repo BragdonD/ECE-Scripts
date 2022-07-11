@@ -238,15 +238,19 @@ function calculateModulesAverage() {
         }
         return val/coeff;
     }
+    let index = 0;
     modules.forEach((module) => {
         let coeffs = [];
         let grades = [];
         subjects.forEach((item) => {
-            coeffs.push(item.coeff);
-            grades.push(item.average);
+            if(item.moduleId === index) {
+                coeffs.push(item.coeff);
+                grades.push(item.average);
+            }
         });
         module.average = getAverage(coeffs, grades);
         module.coeff = coeffs.reduce((i, n) => { return i + n});
+        index++;
     });
 }
 
