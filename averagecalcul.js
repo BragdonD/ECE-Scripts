@@ -90,8 +90,6 @@ function parseGrades($children, $parent){
     }
 }
 
-
-
 function parseRow($row, index) {
     let $children = $row.querySelectorAll("td");
     if($children[0].classList.contains("item-ens")) {
@@ -163,6 +161,40 @@ function calculateEachGradesAverage() {
     });
 }
 
+function transformToFloatCoeffBySubject() {
+    let modifyCoeff = (type) => {
+        if(type === undefined) return;
+        type.coeff = type.coeff?.match(parseGradeRegex);
+    }
+    subjects.forEach((item) => {
+        modifyCoeff(item.grades.Continu);
+        modifyCoeff(item.grades.Examen);
+        modifyCoeff(item.grades.Project);
+    });
+}
+
+function equalizeSubjectCoeff(subject) {
+    let coeff = [];
+    if(subject.Continu !== undefined) {
+        if(subject.Continu?.grades.length > 0) {
+            coeff.push(subject.Continu?.coeff);
+        }
+    }
+    if(subject.Examen !== undefined) {
+        if(subject.Examen?.grades.length > 0) {
+            coeff.push(subject.Examen?.coeff);
+        }
+    }
+    if(subject.Project !== undefined) {
+        if(subject.Project?.grades.length > 0) {
+            coeff.push(subject.Project?.coeff);
+        }
+    }
+
+    let finalCoeff = coeff.reduce((i, n) => { return i + n});
+    subject.Project.coeff = subject.Project?.coeff / finalCoeff;
+}
+
 function calculateSubjectAverage() {
     subjects.forEach((item) => {
         item.average = item.grades.Continu
@@ -230,6 +262,7 @@ function removeUnwanted() {
         parseTable($table);
         equalizeGrades();
         calculateEachGradesAverage();
+        transformToFloatCoeffBySubject();
         console.log(subjects);
         console.log(years);
         console.log(semesters);
