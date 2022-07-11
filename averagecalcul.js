@@ -165,6 +165,7 @@ function transformToFloatCoeffBySubject() {
     let modifyCoeff = (type) => {
         if(type === undefined) return;
         type.coeff = type.coeff?.match(parseGradeRegex);
+        type.coeff = type.coeff?.filter(str => str !== "");
     }
     subjects.forEach((item) => {
         modifyCoeff(item.grades.Continu);
