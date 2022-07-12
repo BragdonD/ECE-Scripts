@@ -40,7 +40,7 @@ function createSemester(number, $parent) {
 }
 
 function createModule(name, $parent) {
-    modules.push({name: name, semestreId: nbSemesters, subject: [], coeff: 0, average: 0});
+    modules.push({name: name, semestreId: nbSemesters, subject: [], row: $parent, coeff: 0, average: 0});
     nbModules += 1;
 }
 
@@ -135,9 +135,6 @@ function equalizeGradesType(type) {
 
 function equalizeGrades() {
     subjects.forEach((item) => {
-        let nbOfContinuGrades = item.grades.Continu?.length;
-        let nbOfExamGrades = item.grades.Examen?.length;
-        let nbOfProjectGrades = item.grades.Project?.length;
         equalizeGradesType(item.grades.Continu);
         equalizeGradesType(item.grades.Examen);
         equalizeGradesType(item.grades.Project);
@@ -226,6 +223,12 @@ function calculateSubjectAverage() {
     });
 }
 
+function transformtoIntSubjectCoeff() {
+    subjects.forEach((item) => {
+        item.coeff = parseInt(item.coeff);
+    });
+}
+
 function calculateModulesAverage() {
     const getAverage = (coeffs, grades) => {
         let val = 0;
@@ -242,13 +245,20 @@ function calculateModulesAverage() {
     modules.forEach((module) => {
         let coeffs = [];
         let grades = [];
+        let bonus = 0;
         subjects.forEach((item) => {
             if(item.moduleId === index) {
+                if(item.sub.includes("Bonus")) {
+                    bonus = item.average;
+                    bonus /= 20.0;
+                    return;
+                }
                 coeffs.push(item.coeff);
                 grades.push(item.average);
             }
         });
         module.average = getAverage(coeffs, grades);
+        module.average += bonus;
         module.coeff = coeffs.reduce((i, n) => { return i + n});
         index++;
     });
@@ -298,6 +308,9 @@ function fillNewTd() {
         displayGradeAverage(item.grades.Examen);
         displayGradeAverage(item.grades.Project);
     });
+    modules.forEach((item) => {
+        displayGradeAverage(item);
+    });
 }
 
 function removeUnwanted() {
@@ -318,6 +331,7 @@ function removeUnwanted() {
         calculateEachGradesAverage();
         transformToFloatCoeffForEachSubject();
         calculateSubjectAverage();
+        transformtoIntSubjectCoeff();
         calculateModulesAverage();
         console.log(subjects);
         console.log(years);
