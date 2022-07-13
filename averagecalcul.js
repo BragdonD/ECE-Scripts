@@ -333,10 +333,6 @@ function removeUnwanted() {
         calculateSubjectAverage();
         transformtoIntSubjectCoeff();
         calculateModulesAverage();
-        console.log(subjects);
-        console.log(years);
-        console.log(semesters);
-        console.log(modules);
         fillNewTd();
     });
 })();
