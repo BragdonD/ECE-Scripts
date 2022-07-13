@@ -13,19 +13,27 @@ var $ = window.jQuery;
 
 const ensStyle = `
 color: #fff !important;
-background-color: #a6c1ee;
-text-align: center;
-border-right: 1px solid #d3d3d3;
+background-color: #376bc5;
+`;
+const ev1Style = `
+color: #000 !important;
+background-color: #95bcff;
+`;
+const fpcStyle = `
+color: #000 !important;
+background-color: #619bff;
 `;
 
 function changeEnsStyle($ensElement) {
-    $ensElement.attr("style", ensStyle);
+    $ensElement.attr("style", function() { return $(this).attr("style") + ensStyle });
 }
 
 function changeEv1Style($ev1Element) {
+    $ev1Element.attr("style", function() { return $(this).attr("style") + ev1Style });
 }
 
 function changeFpcStyle($fpcElement) {
+    $fpcElement.attr("style", function() { return $(this).attr("style") + fpcStyle });
 }
 
 function changeColorStyle() {
@@ -36,5 +44,7 @@ function changeColorStyle() {
     'use strict';
     $("#resultat-note").arrive("#table_note", function() {
         changeEnsStyle($(".item-ens"));
+        changeEv1Style($(".item-ev1"));
+        changeFpcStyle($(".item-fpc"));
     });
 })();
