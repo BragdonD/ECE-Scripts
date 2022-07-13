@@ -36,10 +36,6 @@ function changeFpcStyle($fpcElement) {
     $fpcElement.attr("style", function() { return $(this).attr("style") + fpcStyle });
 }
 
-function changeColorStyle() {
-
-}
-
 (function() {
     'use strict';
     $("#resultat-note").arrive("#table_note", function() {
