@@ -2,7 +2,7 @@
 // @name         Change average sheet style [ECE Paris]
 // @namespace    ECE Paris Script
 // @version      0.1
-// @description  Allows you to change the average sheet automatically.
+// @description  Allows you to change the average style sheet automatically.
 // @author       BragdonD
 // @match        https://campusonline.inseec.net/note/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/arrive/2.4.1/arrive.min.js
