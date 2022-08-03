@@ -11,24 +11,30 @@
 
 var $ = window.jQuery;
 
+/** Variables to help adding data inside each array bellow **/
 var nbYears = -1;
 var nbSemesters = -1;
 var nbModules = -1;
 var nbSubject = -1;
 
-/** It is the variable that will store the parsing of the table. It will acts as a result of the database. **/
+/** It is the variables that will store the parsing of the table.. **/
 var years = [];
 var semesters = [];
 var modules = [];
 var subjects = [];
 
-const yearIdentificationStr = "Année";
-const semestreIdentificationStr = "Semestre";
-const moduleIdentificationStr = "Module";
+const yearIdentificationStr = "Année";          ///String to identify if the line is a year
+const semestreIdentificationStr = "Semestre";   ///String to identify if the line is a semester
+const moduleIdentificationStr = "Module";       ///String to identify if the line is a module
 
-const gradeRegex = /([0-9]{1,2},[0-9]{1,2}) (?:\([0-9]{1,2}(?:\.[0-9]{1,2})?\%\))?/g
-const parseGradeRegex = /([0-9]{1,2},[0-9]{1,2})|(?:[0-9]{1,2}(?:.[0-9]{1,2})?)?/g
+const gradeRegex = /([0-9]{1,2},[0-9]{1,2}) (?:\([0-9]{1,2}(?:\.[0-9]{1,2})?\%\))?/g  ///Regex to parse the grade the first time and obtain a result like "19.50 (50.0%)"
+const parseGradeRegex = /([0-9]{1,2},[0-9]{1,2})|(?:[0-9]{1,2}(?:.[0-9]{1,2})?)?/g    ///Regex to parse the grade in two components 19.50 and 50.0
 
+/**
+ * Function to create a new year inside the array
+ * @param number the year's number
+ * @param $parent the selected parent row
+ */
 function createYear(number, $parent) {
     years.push({year: number, row: $parent, coeff: 1, average: 0});
     nbYears += 1;
