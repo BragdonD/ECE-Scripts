@@ -141,7 +141,8 @@ function parseGrades($children, $parent){
  * @param index the row's index
  */
 function parseRow($row, index) {
-    let $children = $row.querySelectorAll("td");
+    let $children = $row.querySelectorAll("td"); ///get all the td from the row
+    ///test if the row is a Module, a year or a semestrer
     if($children[0].classList.contains("item-ens")) {
         if($children[0].textContent.includes(yearIdentificationStr)) {
             createYear(nbYears + 2, $row);
@@ -153,14 +154,20 @@ function parseRow($row, index) {
             createModule($children[0].textContent,$row);
         }
     }
+    ///test if the row is a subpart of a subject
     if($children[0].classList.contains("item-fpc")) {
         parseSubject($children, $row);
     }
+    ///test if the row contains grades
     if($children[0].classList.contains("item-ev1")) {
         parseGrades($children, $row);
     }
 }
 
+/**
+ * Function to parse the grades table
+ * @param $table the table to parse
+ */
 function parseTable($table) {
     var $rows = $table.find("tr");
     $rows.each( (index, item) => {
@@ -171,15 +178,21 @@ function parseTable($table) {
     });
 }
 
+/**
+ * Function to transform each grades which are string into float number.
+ * Furthermore it will equalize the coefficient of each grades to remove the unknow coefficient
+ * @param type the subject part
+ * @returns void
+ */
 function equalizeGradesType(type) {
-    if(type === undefined) return;
-    let totalCoeff = 0;
+    if(type === undefined) return; ///to test if the subject part exist
+    let totalCoeff = 0; ///variable to store the subject part total coeff and then calcul the correct coeff for each grade
     type.grades.forEach((item) => {
        totalCoeff += parseFloat(item.coeff);
     });
     type.grades.forEach((item) => {
-       item.grade = parseFloat(item.grade.replace(/,/, '.'));
-       item.coeff = item.coeff/(totalCoeff)
+       item.grade = parseFloat(item.grade.replace(/,/, '.')); ///transform the string grade into a float grade
+       item.coeff = item.coeff/(totalCoeff) ///get the right coefficient for the grades
     });
 }
 
