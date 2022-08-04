@@ -40,55 +40,94 @@ function createYear(number, $parent) {
     nbYears += 1;
 }
 
+/**
+ * Function to create a new semester inside the array
+ * @param number the semester number
+ * @param $parent the selected parent row
+ */
 function createSemester(number, $parent) {
     semesters.push({number: number, nbYears: nbYears, row: $parent, coeff: 1, average: 0});
     nbSemesters += 1;
 }
 
+/**
+ * Function to create a new module inside the array
+ * @param name the module name
+ * @param $parent the selected parent row
+ */
 function createModule(name, $parent) {
     modules.push({name: name, semestreId: nbSemesters, subject: [], row: $parent, coeff: 0, average: 0});
     nbModules += 1;
 }
 
+/**
+ * Function to create a new subject inside the array
+ * @param name the subject name
+ * @param $parent the selected parent row
+ */
 function CreateNewSubject(name, $parent) {
     subjects.push({ sub: name, grades: {}, moduleId: nbModules, row: $parent });
     nbSubject += 1;
 }
 
+/**
+ * Function to parse a row when it is detected as a subject row
+ * @param $children the selected row's children - it is a <td></td> element list
+ * @param $parent the selected parent row
+ */
 function parseSubject($children, $parent) {
-    let subjectName = $children[0].textContent;
-    CreateNewSubject(subjectName, $parent);
-    if($children[1].classList.contains("ponderation")) {
+    let subjectName = $children[0].textContent; ///Get the subject name
+    CreateNewSubject(subjectName, $parent); ///create the new subject inside the array
+    if($children[1].classList.contains("ponderation")) { ///Get the coefficient of the subject for the module average calculus
         let subjectCoeff = $children[1].textContent;
         subjects[nbSubject].coeff = subjectCoeff;
     }
 }
 
+/**
+ * Function to turn the string of grades into an array of grades 
+ * @param gradeStrArr The grade are store inside a string under the format 19,50 (50.0%)
+ * @returns the array of grades to store inside the properties grade of the subject inside the array
+ */
 function parseGrade(gradeStrArr) {
     let grades = [];
     for(let i=0; i<gradeStrArr?.length; i++)
     {
         let parseResult = gradeStrArr[i].match(parseGradeRegex);
-        parseResult = parseResult.filter(str => str !== "");
-        grades.push({
+        parseResult = parseResult.filter(str => str !== ""); /// filter all the empty expression that are taken in by the regex
+        /**
+         * ParseResult is divide now as 
+         * [0] === the grade
+         * [1] === the coefficient
+         * [1] does not exist some times
+         */
+        grades.push({   ///Add the grades to the array of grades inside each
             grade: parseResult[0],
-            coeff: parseResult[1] !== undefined ? parseResult[1] : 100,
+            coeff: parseResult[1] !== undefined ? parseResult[1] : 100, ///the coefficient is not given when the grades have a ponderation of 100% so it need to be add as 100
         });
     }
     return grades;
 }
 
+/**
+ * Function to parses all the grades of a subject (continu, exam and project)
+ * @param $children the selected row's children - a td element list 
+ * @param $parent the selected parent row
+ */
 function parseGrades($children, $parent){
+    /**
+     * The identificator for each type part of a subject
+     */
     const continu = "Continu";
     const exam = "Examen";
     const project = "Project";
 
-    let subjectPartName = $children[0].textContent;
-    let subjectPartCoeff = $children[2].textContent;
-    let subjectPartGrades = $children[3].textContent;
-
+    let subjectPartName = $children[0].textContent;   ///get the name of the subject's part
+    let subjectPartCoeff = $children[2].textContent;  ///get the coeff of the subject's part
+    let subjectPartGrades = $children[3].textContent; ///get the grades of the subject's part
+    ///check the part of the subject to insert ( Continu, Examen, Project )
     let nameToInsert = subjectPartName.includes(continu) ? continu : subjectPartName.includes(exam) ? exam : project;
-
+    ///add it to the subject and add its grades, its coefficient and its row
     subjects[nbSubject]["grades"][nameToInsert] = {
         grades: parseGrade(subjectPartGrades.match(gradeRegex)),
         coeff: subjectPartCoeff,
@@ -96,6 +135,11 @@ function parseGrades($children, $parent){
     }
 }
 
+/**
+ * Function to parse a row of the table
+ * @param $row the selected row to parse
+ * @param index the row's index
+ */
 function parseRow($row, index) {
     let $children = $row.querySelectorAll("td");
     if($children[0].classList.contains("item-ens")) {
