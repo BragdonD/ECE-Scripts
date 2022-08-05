@@ -32,8 +32,8 @@ const parseGradeRegex = /([0-9]{1,2},[0-9]{1,2})|(?:[0-9]{1,2}(?:.[0-9]{1,2})?)?
 
 /**
  * Function to create a new year inside the array
- * @param number the year's number
- * @param $parent the selected parent row
+ * @param {number} number the year's number
+ * @param {HTMLElement} $parent the selected parent row
  */
 function createYear(number, $parent) {
     years.push({year: number, row: $parent, coeff: 1, average: 0});
@@ -42,8 +42,8 @@ function createYear(number, $parent) {
 
 /**
  * Function to create a new semester inside the array
- * @param number the semester number
- * @param $parent the selected parent row
+ * @param {number} number the semester number
+ * @param {HTMLElement} $parent the selected parent row
  */
 function createSemester(number, $parent) {
     semesters.push({number: number, nbYears: nbYears, row: $parent, coeff: 1, average: 0});
@@ -52,8 +52,8 @@ function createSemester(number, $parent) {
 
 /**
  * Function to create a new module inside the array
- * @param name the module name
- * @param $parent the selected parent row
+ * @param {string} name the module name
+ * @param {HTMLElement} $parent the selected parent row
  */
 function createModule(name, $parent) {
     modules.push({name: name, semestreId: nbSemesters, subject: [], row: $parent, coeff: 0, average: 0});
@@ -62,8 +62,8 @@ function createModule(name, $parent) {
 
 /**
  * Function to create a new subject inside the array
- * @param name the subject name
- * @param $parent the selected parent row
+ * @param {string} name the subject name
+ * @param {HTMLElement} $parent the selected parent row
  */
 function CreateNewSubject(name, $parent) {
     subjects.push({ sub: name, grades: {}, moduleId: nbModules, row: $parent });
@@ -72,8 +72,8 @@ function CreateNewSubject(name, $parent) {
 
 /**
  * Function to parse a row when it is detected as a subject row
- * @param $children the selected row's children - it is a <td></td> element list
- * @param $parent the selected parent row
+ * @param {HTMLCollectionOf} $children the selected row's children - it is a <td></td> element list
+ * @param {HTMLElement} $parent the selected parent row
  */
 function parseSubject($children, $parent) {
     let subjectName = $children[0].textContent; ///Get the subject name
@@ -86,7 +86,7 @@ function parseSubject($children, $parent) {
 
 /**
  * Function to turn the string of grades into an array of grades 
- * @param gradeStrArr The grade are store inside a string under the format 19,50 (50.0%)
+ * @param {string} gradeStrArr The grade are store inside a string under the format 19,50 (50.0%)
  * @returns the array of grades to store inside the properties grade of the subject inside the array
  */
 function parseGrade(gradeStrArr) {
@@ -111,8 +111,8 @@ function parseGrade(gradeStrArr) {
 
 /**
  * Function to parses all the grades of a subject (continu, exam and project)
- * @param $children the selected row's children - a td element list 
- * @param $parent the selected parent row
+ * @param {Object} $children the selected row's children - a td element list 
+ * @param {Object} $parent the selected parent row
  */
 function parseGrades($children, $parent){
     /**
@@ -137,8 +137,8 @@ function parseGrades($children, $parent){
 
 /**
  * Function to parse a row of the table
- * @param $row the selected row to parse
- * @param index the row's index
+ * @param {Object} $row the selected row to parse
+ * @param {Number} index the row's index
  */
 function parseRow($row, index) {
     let $children = $row.querySelectorAll("td"); ///get all the td from the row
@@ -166,7 +166,7 @@ function parseRow($row, index) {
 
 /**
  * Function to parse the grades table
- * @param $table the table to parse
+ * @param {Object} $table the table to parse
  */
 function parseTable($table) {
     var $rows = $table.find("tr");
@@ -181,11 +181,11 @@ function parseTable($table) {
 /**
  * Function to transform each grades which are string into float number.
  * Furthermore it will equalize the coefficient of each grades to remove the unknow coefficient
- * @param type the subject part
- * @returns void
+ * @param {Object} type the subject part
+ * @returns {void}
  */
 function equalizeGradesType(type) {
-    if(type === undefined) return; ///to test if the subject part exist
+    if(type === undefined) return; ///test if the subject part exist
     let totalCoeff = 0; ///variable to store the subject part total coeff and then calcul the correct coeff for each grade
     type.grades.forEach((item) => {
        totalCoeff += parseFloat(item.coeff);
@@ -196,6 +196,9 @@ function equalizeGradesType(type) {
     });
 }
 
+/**
+ * Function to manage the grades's transformation for each subject's type
+ */
 function equalizeGrades() {
     subjects.forEach((item) => {
         equalizeGradesType(item.grades.Continu);
@@ -204,16 +207,27 @@ function equalizeGrades() {
     });
 }
 
+/**
+ * Function to make the average for each subject part (Continu - Exam - Project)
+ * @param {Object} type the type of the subject part
+ * @returns {void}
+ */
 function calculateGradesAverage(type) {
-    if(type === undefined) return;
-    if(type.grades.length === 0) type.average = undefined;
+    if(type === undefined) return; ///test if the subject part exist
+    if(type.grades.length === 0) { ///if there is no grades we can go next
+        type.average = undefined;
+        return;
+    }
     let average = 0;
-    type.grades.forEach((item) => {
+    type.grades.forEach((item) => { ///add to the average
        average += (item.grade * item.coeff)
     });
-    type.average = parseFloat(average);
+    type.average = parseFloat(average); ///store the average
 }
 
+/**
+ * Function to manage the grades's average calcul for each subject's type
+ */
 function calculateEachGradesAverage() {
     subjects.forEach((item) => {
         calculateGradesAverage(item.grades.Continu);
@@ -222,9 +236,12 @@ function calculateEachGradesAverage() {
     });
 }
 
+/**
+ * Function to transform the coeff of the subject part from a string to a float
+ */
 function transformToFloatCoeffForEachSubject() {
     let modifyCoeff = (type) => {
-        if(type === undefined) return;
+        if(type === undefined) return; ///test if the type exists
         type.coeff = type.coeff?.match(parseGradeRegex);
         type.coeff = type.coeff?.filter(str => str !== "")[0];
         type.coeff = parseFloat(type.coeff);
@@ -236,15 +253,20 @@ function transformToFloatCoeffForEachSubject() {
     });
 }
 
+/**
+ * Function to calcul the coefficient of each subject part
+ * @param {Object} subject the subject to optimize the coefficient of each part
+ * @returns {boolean} if false need to be handle because it means that the subject doesn't have any grades for now.
+ */
 function equalizeSubjectCoeff(subject) {
     let coeff = [];
     let continu = false;
     let exam = false;
     let project = false;
-    if(subject.Continu !== undefined) {
-        if(subject.Continu?.grades.length > 0) {
+    if(subject.Continu !== undefined) { /// test if the subject's part exists
+        if(subject.Continu?.grades.length > 0) { ///test if the subject part need to be taken into account
             coeff.push(subject.Continu?.coeff);
-            continu = true;
+            continu = true; 
         }
     }
     if(subject.Examen !== undefined) {
@@ -260,7 +282,8 @@ function equalizeSubjectCoeff(subject) {
         }
     }
 
-    let finalCoeff = coeff.reduce((i, n) => { return i + n});
+    let finalCoeff = coeff.reduce((i, n) => { return i + n}); ///calcul the summ of all the coefficient
+    ///Calcul each coeff
     if(subject.Continu !== undefined) {
         subject.Continu.coeff = subject.Continu.coeff / finalCoeff;
     }
