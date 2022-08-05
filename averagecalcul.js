@@ -293,39 +293,57 @@ function equalizeSubjectCoeff(subject) {
     if(subject.Project !== undefined) {
         subject.Project.coeff = subject.Project.coeff / finalCoeff;
     }
+    ///Operation to get if there is at least one grade for the subject
     return continu || exam || project;
 }
 
+/**
+ * Function to calcul all the subject average and set it inside the subjects array
+ */
 function calculateSubjectAverage() {
     subjects.forEach((item) => {
         if(equalizeSubjectCoeff(item.grades) === false) {
             item.average = undefined;
             return;
         }
-        item.average = 0;
-        item.average += (item.grades.Continu !== undefined ? (item.grades.Continu.average * item.grades.Continu.coeff) : 0);
+        item.average = 0; ///reset to the 0 the subject average
+        ///add to the item average
+        item.average += (item.grades.Continu !== undefined ? (item.grades.Continu.average * item.grades.Continu.coeff) : 0); 
         item.average += (item.grades.Examen !== undefined ? (item.grades.Examen.average * item.grades.Examen.coeff) : 0);
         item.average += (item.grades.Project !== undefined ? (item.grades.Project.average * item.grades.Project.coeff) : 0);
     });
 }
 
+/**
+ * Function to transform each subject's coeff from a string into an integer
+ */
 function transformtoIntSubjectCoeff() {
     subjects.forEach((item) => {
         item.coeff = parseInt(item.coeff);
     });
 }
 
+/**
+ * Function to calcul the module's average
+ */
 function calculateModulesAverage() {
+    /**
+     * Function to get the average for the module
+     * @param coeffs an array of all the module's subject coeff 
+     * @param grades an array of all the module's subject grades 
+     * @returns the average of the module or undefined if the module contains 0 grade
+     */
     const getAverage = (coeffs, grades) => {
         let val = 0;
         let coeff = 0;
         for(let i=0; i < coeffs.length; i++){
-            if(grades[i] !== undefined) {
+            if(grades[i] !== undefined) { /// test if there is at least one grade for the module
                 val += coeffs[i]*grades[i];
                 coeff += coeffs[i];
             }
         }
-        return val/coeff;
+        if(coeff = 0) return undefined;
+        return val/coeff; ///the subject for the modules
     }
     let index = 0;
     modules.forEach((module) => {
@@ -334,13 +352,13 @@ function calculateModulesAverage() {
         let bonus = 0;
         subjects.forEach((item) => {
             if(item.moduleId === index) {
-                if(item.sub.includes("Bonus")) {
+                if(item.sub.includes("Bonus")) { ///bonus grade is a little bit special it is directly add to the scientific module
                     bonus = item.average;
                     bonus /= 20.0;
                     return;
                 }
-                coeffs.push(item.coeff);
-                grades.push(item.average);
+                coeffs.push(item.coeff); ///add the subject coeff
+                grades.push(item.average); ///add the subject grade
             }
         });
         module.average = getAverage(coeffs, grades);
@@ -350,13 +368,17 @@ function calculateModulesAverage() {
     });
 }
 
+/**
+ * Function to add a column to each row of the table
+ * @param {HTMLElement} $table the table that needs to be modified
+ */
 function modifyTable($table) {
     var $rows = $table.find("tr");
     $rows.each( (index, item) => {
         let parent = item.parentNode;
         let children = item.querySelectorAll("td");
         let firstChild = children[0];
-        if(parent.tagName === 'THEAD') {
+        if(parent.tagName === 'THEAD') { ///check if the row is inside the table's header to add the column name
             if(index === 1) {
                 let newTh = document.createElement('th');
                 newTh.classList.add("entete-average");
@@ -365,7 +387,7 @@ function modifyTable($table) {
             }
             return;
         }
-
+        ///if the parent is not inside the table's header then we add the grade
         let newTd = document.createElement('td');
         newTd.classList.add("average");
         newTd.classList.add(firstChild.classList.contains("item-ens") ? "item-ens" : firstChild.classList.contains("item-fpc") ? "item-fpc" : "item-ev1");
@@ -374,19 +396,33 @@ function modifyTable($table) {
     });
 }
 
+/**
+ * Function to add the average text to the td element
+ * @param {number} average the grade to add
+ * @param {HTMLElement} elem the td element
+ * @returns void
+ */
 function fillElem(average, elem) {
     if(average === undefined) return;
     elem.innerText = average;
 }
 
+/**
+ * Function to display the average if it is not undefined
+ * @param average 
+ * @returns 
+ */
 function displayGradeAverage(average) {
-    if(average === undefined) return;
+    if(average === undefined) return; ///test if the average's calcul has been succesfull
     let children = average.row.children;
     if(children !== undefined) {
         fillElem(average.average.toFixed(2), children[children.length-1]);
     }
 }
 
+/**
+ * Function to fill all the new td that has been created
+ */
 function fillNewTd() {
     subjects.forEach((item) => {
         displayGradeAverage(item);
@@ -399,6 +435,9 @@ function fillNewTd() {
     });
 }
 
+/**
+ * Function to remove a strange apparition of a second table when the window is resized
+ */
 function removeUnwanted() {
     $("#resultat-note").arrive(".releve_note", function() {
         let $elem = $(this);
@@ -406,8 +445,14 @@ function removeUnwanted() {
     });
 }
 
+/**
+ * Main function to execute the code
+ */
 (function() {
     'use strict';
+    /**
+     * We waited for the table to be display after the grades are load from the origin
+     */
     $("#resultat-note").arrive("#table_note", function() {
         var $table = $(this);
         removeUnwanted();
