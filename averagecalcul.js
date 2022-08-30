@@ -85,7 +85,7 @@ function parseSubject($children, $parent) {
 }
 
 /**
- * Function to turn the string of grades into an array of grades 
+ * Function to turn the string of grades into an array of grades
  * @param {string} gradeStrArr The grade are store inside a string under the format 19,50 (50.0%)
  * @returns the array of grades to store inside the properties grade of the subject inside the array
  */
@@ -96,7 +96,7 @@ function parseGrade(gradeStrArr) {
         let parseResult = gradeStrArr[i].match(parseGradeRegex);
         parseResult = parseResult.filter(str => str !== ""); /// filter all the empty expression that are taken in by the regex
         /**
-         * ParseResult is divide now as 
+         * ParseResult is divide now as
          * [0] === the grade
          * [1] === the coefficient
          * [1] does not exist some times
@@ -111,7 +111,7 @@ function parseGrade(gradeStrArr) {
 
 /**
  * Function to parses all the grades of a subject (continu, exam and project)
- * @param {Object} $children the selected row's children - a td element list 
+ * @param {Object} $children the selected row's children - a td element list
  * @param {Object} $parent the selected parent row
  */
 function parseGrades($children, $parent){
@@ -266,7 +266,7 @@ function equalizeSubjectCoeff(subject) {
     if(subject.Continu !== undefined) { /// test if the subject's part exists
         if(subject.Continu?.grades.length > 0) { ///test if the subject part need to be taken into account
             coeff.push(subject.Continu?.coeff);
-            continu = true; 
+            continu = true;
         }
     }
     if(subject.Examen !== undefined) {
@@ -281,7 +281,7 @@ function equalizeSubjectCoeff(subject) {
             project = true;
         }
     }
-
+    if(coeff.length === 0) return false;
     let finalCoeff = coeff.reduce((i, n) => { return i + n}); ///calcul the summ of all the coefficient
     ///Calcul each coeff
     if(subject.Continu !== undefined) {
@@ -308,7 +308,7 @@ function calculateSubjectAverage() {
         }
         item.average = 0; ///reset to the 0 the subject average
         ///add to the item average
-        item.average += (item.grades.Continu !== undefined ? (item.grades.Continu.average * item.grades.Continu.coeff) : 0); 
+        item.average += (item.grades.Continu !== undefined ? (item.grades.Continu.average * item.grades.Continu.coeff) : 0);
         item.average += (item.grades.Examen !== undefined ? (item.grades.Examen.average * item.grades.Examen.coeff) : 0);
         item.average += (item.grades.Project !== undefined ? (item.grades.Project.average * item.grades.Project.coeff) : 0);
     });
@@ -329,8 +329,8 @@ function transformtoIntSubjectCoeff() {
 function calculateModulesAverage() {
     /**
      * Function to get the average for the module
-     * @param coeffs an array of all the module's subject coeff 
-     * @param grades an array of all the module's subject grades 
+     * @param coeffs an array of all the module's subject coeff
+     * @param grades an array of all the module's subject grades
      * @returns the average of the module or undefined if the module contains 0 grade
      */
     const getAverage = (coeffs, grades) => {
@@ -342,7 +342,7 @@ function calculateModulesAverage() {
                 coeff += coeffs[i];
             }
         }
-        if(coeff = 0) return undefined;
+        if(coeff === 0) return undefined;
         return val/coeff; ///the subject for the modules
     }
     let index = 0;
@@ -409,14 +409,14 @@ function fillElem(average, elem) {
 
 /**
  * Function to display the average if it is not undefined
- * @param average 
- * @returns 
+ * @param average
+ * @returns
  */
 function displayGradeAverage(average) {
     if(average === undefined) return; ///test if the average's calcul has been succesfull
     let children = average.row.children;
     if(children !== undefined) {
-        fillElem(average.average.toFixed(2), children[children.length-1]);
+        fillElem(average.average?.toFixed(2), children[children.length-1]);
     }
 }
 
