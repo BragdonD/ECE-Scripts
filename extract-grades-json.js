@@ -109,6 +109,28 @@
 
   const extractGrades = (str) => {
     const grades = str.split(" - ");
+    const gradesCoefficients = grades.map((grade) => {
+      const gradeCoefficient = grade.split(" ");
+      let gradeValue = parseFloat(gradeCoefficient[0]?.replace(",", "."));
+      let gradeWeight = gradeCoefficient[1];
+      if (gradeWeight === undefined) {
+        gradeWeight = 100.0;
+      } else {
+        gradeWeight = gradeWeight.replace("(", "");
+        gradeWeight = gradeWeight.replace(")", "");
+        gradeWeight = parseFloat(gradeWeight.replace(",", "."));
+      }
+
+      if (gradeValue === NaN) {
+        gradeValue = undefined;
+      }
+
+      return {
+        value: gradeValue,
+        weight: gradeWeight,
+      };
+    });
+    return gradesCoefficients;
   };
 
   const extractCoursePartFromTable = (coursePartRow) => {
@@ -117,7 +139,9 @@
       weight: parseFloat(
         coursePartRow.querySelector(".".concat(weightColumnClass)).innerText.replace(",", ".")
       ),
-      grades: [],
+      grades: extractGrades(
+        coursePartRow.querySelector(".".concat(gradeColumnClass)).innerText
+      ),
       resit: "",
     };    
   }
