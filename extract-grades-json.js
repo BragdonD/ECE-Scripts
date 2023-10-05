@@ -81,6 +81,10 @@
   const semesterMistakeStr = "Semestre Académique";
   const moduleStr = ["Module", "LFH"];
   const moduleMistakeStr = ["Module Mineure"];
+  const continuousStr = ["Continu"];
+  const renameContinuousStr = "Continu";
+  const examsStr = ["Exam"];
+  const projectsStr = ["Projet"];
   const courseRowClass = "item-fpc";
   const coursePartClass = "item-ev1";
   const nameColumnClass = "libelle";
@@ -107,7 +111,64 @@
     const grades = str.split(" - ");
   };
 
-  const extractModuleNumber = (semesterRows) => {
+  const extractCoursePartFromTable = (coursePartRow) => {
+    return {
+      name: coursePartRow.querySelector(".".concat(nameColumnClass)).innerText,
+      weight: parseFloat(
+        coursePartRow.querySelector(".".concat(weightColumnClass)).innerText.replace(",", ".")
+      ),
+      grades: [],
+      resit: "",
+    };    
+  }
+
+
+  const extractCourseInformation = (courseRow) => {
+    return {
+      name: courseRow.querySelector(".".concat(nameColumnClass)).innerText,
+      coefficient: parseFloat(
+        courseRow.querySelector(".".concat(courseCoefficientClass)).innerText.replace(",", ".")
+      ),
+    };
+  }
+
+  const extractCourseNumberFromTable = (moduleRows) => {
+    const rows = Array.from(moduleRows);
+    let coursesRows = rows.filter((row) =>
+      row.querySelector(".".concat(courseRowClass))
+    );
+    return coursesRows.length;
+  }
+
+  const extractCourseFromTable = (moduleRow, i) => {
+    const rows = Array.from(moduleRow);
+    let coursesRows = rows.filter((row) =>
+      row.querySelector(".".concat(courseRowClass))
+    );
+    const courseRowIndex = rows.indexOf(coursesRows[i]);
+    let nextCourseRowIndex = rows.indexOf(coursesRows[i + 1]);
+    if (nextCourseRowIndex === -1) {
+      nextCourseRowIndex = rows.length;
+    }
+    const courseRows = rows.slice(courseRowIndex, nextCourseRowIndex);
+    let course = {};
+    if(courseRows.length >= 1) {
+      course = extractCourseInformation(courseRows[0]);
+    }
+    for (let i = 1; i < courseRows.length; i++) {
+      let { name, ...coursePart } = extractCoursePartFromTable(courseRows[i]);
+      for (let j = 0; j < continuousStr.length; j++) {
+        if(name.includes(continuousStr[j])) {
+          name = renameContinuousStr;
+          break;
+        }
+      }
+      course[name] = coursePart;
+    }
+    return course;
+  }
+
+  const extractModuleNumberFromTable = (semesterRows) => {
     const rows = Array.from(semesterRows);
     let modulesRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
@@ -123,7 +184,7 @@
     return modulesRows.length;
   }
 
-  const extractModule = (semesterRows, i) => {
+  const extractModuleFromTable = (semesterRows, i) => {
     const rows = Array.from(semesterRows);
     let modulesRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
@@ -142,11 +203,10 @@
       nextModuleRowIndex = rows.length;
     }
     const moduleRows = rows.slice(moduleRowIndex, nextModuleRowIndex);
-    console.log(moduleRows);
-    if (moduleRows.length === 0) {
-      return undefined;
-    } else {
-      return {}
+    const courses = [];
+    for (let i = 0; i < extractCourseNumberFromTable(moduleRows); i++) {
+      console.log(extractCourseFromTable(moduleRows, i));
+      //courses.push(course);
     }
   };
 
@@ -155,7 +215,7 @@
    * @param {Array<Element>} yearRows the rows of the table corresponding to the year
    * @param {number} i the index of the semester
    */
-  const extractSemester = (yearRows, i) => {
+  const extractSemesterFromTable = (yearRows, i) => {
     const rows = Array.from(yearRows);
     const semestersAndModuleRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
@@ -173,8 +233,8 @@
     }
     const semesterRows = rows.slice(semesterRowIndex, nextSemesterRowIndex);
     const modules = [];
-    for (let i = 0; i < extractModuleNumber(semesterRows); i++) {
-      const module = extractModule(semesterRows, i);
+    for (let i = 0; i < extractModuleNumberFromTable(semesterRows); i++) {
+      const module = extractModuleFromTable(semesterRows, i);
       modules.push(module);
     }
   };
@@ -184,7 +244,7 @@
    * @param {HTMLAllCollection} tableRows the rows of the table
    * @param {number} i the index of the year
    */
-  const extractYear = (tableRows, i) => {
+  const extractYearFromTable = (tableRows, i) => {
     const rows = Array.from(tableRows);
     const yearsRows = rows.filter((row) =>
       row.classList.contains(yearRowClass)
@@ -193,7 +253,7 @@
     const nextYearRowIndex = rows.indexOf(yearsRows[i + 1]);
     const yearRows = rows.slice(yearRowIndex, nextYearRowIndex);
     for (let i = 0; i < semesterNumber; i++) {
-      extractSemester(yearRows, i);
+      extractSemesterFromTable(yearRows, i);
     }
   };
 
@@ -202,7 +262,7 @@
    * .item-ens that are not a module or doesn't have a name...
    * @param {HTMLAllCollection} tableRows the rows of the table
    */
-  const removeUselessParts = (tableRows) => {
+  const removeUselessPartsFromTable = (tableRows) => {
     const rows = Array.from(tableRows);
     const semestersAndModuleRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
@@ -212,6 +272,7 @@
         if(semestersAndModuleRows[i].innerText.includes(moduleMistakeStr[j])) {
           const rowIndex = rows.indexOf(semestersAndModuleRows[i]);
           tableRows.item(rowIndex).remove();
+          break;
         }
       }
       if(semestersAndModuleRows[i].innerText === "") { // no name module that are a mistake
@@ -228,10 +289,10 @@
     const yearsCount = extractYearsCount(table);
     const years = [];
     let tableRows = table.querySelectorAll("tr");
-    removeUselessParts(tableRows); // clean the table
+    removeUselessPartsFromTable(tableRows); // clean the table
     tableRows = table.querySelectorAll("tr"); // update the tableRows
     for (let i = 0; i < yearsCount; i++) {
-      const year = extractYear(tableRows, i);
+      const year = extractYearFromTable(tableRows, i);
       years.push(year);
     }
   });
