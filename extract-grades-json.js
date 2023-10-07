@@ -16,7 +16,7 @@
  */
 
 /**
- * @typedef {CourseGradePart} Project
+ * @typedef {Object} CourseGradePart
  * @property {number} weight
  * @property {Array.<Grades>} grades
  */
@@ -43,7 +43,6 @@
  * @property {Continuous} continuous
  * @property {Exams} exams
  * @property {Projects} projects
- * @property {number} average
  * @property {number} coefficient // ECTS
  * @property {Resit} resit
  */
@@ -52,15 +51,12 @@
  * @typedef {Object} Module
  * @property {string} name
  * @property {Array.<Course>} courses
- * @property {number} average
- * @property {number} coefficient // ECTS
  */
 
 /**
  * @typedef {Object} Semester
  * @property {string} name
  * @property {Array.<Module>} modules
- * @property {number} average
  * @note All semester count the same in the year average
  */
 
@@ -68,7 +64,6 @@
  * @typedef {Object} Year
  * @property {string} name
  * @property {Array.<Semester>} semesters
- * @property {number} average
  */
 
 (function () {
@@ -94,11 +89,11 @@
   const weightColumnClass = "coefficient"; // they inverse it ...
   const semesterNumber = 2;
 
-  const resultatsContainer = document.querySelector(
+  const resultsContainer = document.querySelector(
     "#".concat(resultatsContainerId)
   );
 
-  if (!resultatsContainer) {
+  if (!resultsContainer) {
     return;
   }
 
@@ -108,12 +103,12 @@
   };
 
   const extractGrades = (str) => {
-    const grades = str.split(" - ");
-    const gradesCoefficients = grades.map((grade) => {
+    let grades = str.split(" - ");
+    grades = grades.map((grade) => {
       const gradeCoefficient = grade.split(" ");
       let gradeValue = parseFloat(gradeCoefficient[0]?.replace(",", "."));
       let gradeWeight = gradeCoefficient[1];
-      if (gradeWeight === undefined) {
+      if (gradeWeight === undefined || gradeWeight === null || gradeWeight === "") {
         gradeWeight = 100.0;
       } else {
         gradeWeight = gradeWeight.replace("(", "");
@@ -130,31 +125,42 @@
         weight: gradeWeight,
       };
     });
-    return gradesCoefficients;
+    return grades;
   };
 
   const extractCoursePartFromTable = (coursePartRow) => {
-    return {
+    let coursePart = {
       name: coursePartRow.querySelector(".".concat(nameColumnClass)).innerText,
       weight: parseFloat(
-        coursePartRow.querySelector(".".concat(weightColumnClass)).innerText.replace(",", ".")
+        coursePartRow
+          .querySelector(".".concat(weightColumnClass))
+          .innerText.replace(",", ".")
       ),
       grades: extractGrades(
         coursePartRow.querySelector(".".concat(gradeColumnClass)).innerText
       ),
-      resit: "",
-    };    
-  }
+    };
+    return coursePart;
+  };
 
-
+  /**
+   *
+   * @param {*} courseRow
+   * @returns
+   */
   const extractCourseInformation = (courseRow) => {
     return {
       name: courseRow.querySelector(".".concat(nameColumnClass)).innerText,
       coefficient: parseFloat(
-        courseRow.querySelector(".".concat(courseCoefficientClass)).innerText.replace(",", ".")
+        courseRow
+          .querySelector(".".concat(courseCoefficientClass))
+          .innerText.replace(",", ".")
+      ),
+      resit: parseFloat(
+        courseRow.querySelector(".".concat(resitColumnClass)).innerText
       ),
     };
-  }
+  };
 
   const extractCourseNumberFromTable = (moduleRows) => {
     const rows = Array.from(moduleRows);
@@ -162,7 +168,7 @@
       row.querySelector(".".concat(courseRowClass))
     );
     return coursesRows.length;
-  }
+  };
 
   const extractCourseFromTable = (moduleRow, i) => {
     const rows = Array.from(moduleRow);
@@ -176,21 +182,39 @@
     }
     const courseRows = rows.slice(courseRowIndex, nextCourseRowIndex);
     let course = {};
-    if(courseRows.length >= 1) {
+    if (courseRows.length >= 1) {
       course = extractCourseInformation(courseRows[0]);
     }
     for (let i = 1; i < courseRows.length; i++) {
       let { name, ...coursePart } = extractCoursePartFromTable(courseRows[i]);
       for (let j = 0; j < continuousStr.length; j++) {
-        if(name.includes(continuousStr[j])) {
+        if (name.includes(continuousStr[j])) {
           name = renameContinuousStr;
+          break;
+        }
+      }
+      for (let j = 0; j < examsStr.length; j++) {
+        if (name.includes(examsStr[j])) {
+          name = examsStr[0];
+          break;
+        }
+      }
+      for (let j = 0; j < projectsStr.length; j++) {
+        if (name.includes(projectsStr[j])) {
+          name = projectsStr[0];
           break;
         }
       }
       course[name] = coursePart;
     }
     return course;
-  }
+  };
+
+  const extractModuleInformation = (moduleRow) => {
+    return {
+      name: moduleRow.querySelector(".".concat(nameColumnClass)).innerText,
+    };
+  };
 
   const extractModuleNumberFromTable = (semesterRows) => {
     const rows = Array.from(semesterRows);
@@ -206,7 +230,7 @@
       return false;
     });
     return modulesRows.length;
-  }
+  };
 
   const extractModuleFromTable = (semesterRows, i) => {
     const rows = Array.from(semesterRows);
@@ -229,10 +253,19 @@
     const moduleRows = rows.slice(moduleRowIndex, nextModuleRowIndex);
     const courses = [];
     for (let i = 0; i < extractCourseNumberFromTable(moduleRows); i++) {
-      console.log(extractCourseFromTable(moduleRows, i));
-      //courses.push(course);
+      courses.push(extractCourseFromTable(moduleRows, i));
     }
+    return {
+      ...extractModuleInformation(moduleRows[0]),
+      courses: courses,
+    };
   };
+
+  const extractSemesterInformation = (semesterRow) => {
+    return {
+      name: semesterRow.querySelector(".".concat(nameColumnClass)).innerText,
+    };
+  }
 
   /**
    * Extract all the data for a
@@ -247,8 +280,8 @@
     let semestersRows = semestersAndModuleRows.filter((row) =>
       row.innerText.includes(semesterStr)
     );
-    semestersRows = semestersRows.filter((row) =>
-      !row.innerText.includes(semesterMistakeStr)
+    semestersRows = semestersRows.filter(
+      (row) => !row.innerText.includes(semesterMistakeStr)
     );
     const semesterRowIndex = rows.indexOf(semestersRows[i]);
     let nextSemesterRowIndex = rows.indexOf(semestersRows[i + 1]);
@@ -261,7 +294,17 @@
       const module = extractModuleFromTable(semesterRows, i);
       modules.push(module);
     }
-  };
+    return {
+      ...extractSemesterInformation(semesterRows[0]),
+      modules: modules,
+    }
+  };  
+
+  const extractYearInformation = (yearRow) => {
+    return {
+      name: yearRow.querySelector(".".concat(nameColumnClass)).innerText,
+    };
+  }
 
   /**
    * Extract all the data for a year
@@ -276,13 +319,18 @@
     const yearRowIndex = rows.indexOf(yearsRows[i]);
     const nextYearRowIndex = rows.indexOf(yearsRows[i + 1]);
     const yearRows = rows.slice(yearRowIndex, nextYearRowIndex);
+    const semesters = [];
     for (let i = 0; i < semesterNumber; i++) {
-      extractSemesterFromTable(yearRows, i);
+      semesters.push(extractSemesterFromTable(yearRows, i));
     }
+    return {
+      ...extractYearInformation(yearRows[0]),
+      semesters: semesters,
+    };
   };
 
   /**
-   * This functions remove all the part that are stucks between two 
+   * This functions remove all the part that are stucks between two
    * .item-ens that are not a module or doesn't have a name...
    * @param {HTMLAllCollection} tableRows the rows of the table
    */
@@ -291,25 +339,26 @@
     const semestersAndModuleRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
     );
-    for(let i = 0; i < semestersAndModuleRows.length; i++) {
-      for(let j = 0; j < moduleStr.length; j++) {
-        if(semestersAndModuleRows[i].innerText.includes(moduleMistakeStr[j])) {
+    for (let i = 0; i < semestersAndModuleRows.length; i++) {
+      for (let j = 0; j < moduleStr.length; j++) {
+        if (semestersAndModuleRows[i].innerText.includes(moduleMistakeStr[j])) {
           const rowIndex = rows.indexOf(semestersAndModuleRows[i]);
           tableRows.item(rowIndex).remove();
           break;
         }
       }
-      if(semestersAndModuleRows[i].innerText === "") { // no name module that are a mistake
+      if (semestersAndModuleRows[i].innerText === "") {
+        // no name module that are a mistake
         const rowIndex = rows.indexOf(semestersAndModuleRows[i]);
         const nextRowIndex = rows.indexOf(semestersAndModuleRows[i + 1]);
-        for(let j = rowIndex; j < nextRowIndex; j++) {
+        for (let j = rowIndex; j < nextRowIndex; j++) {
           tableRows.item(j).remove();
         }
       }
     }
-  }
+  };
 
-  resultatsContainer.arrive("#".concat(resultatsTableId), (table) => {
+  resultsContainer.arrive("#".concat(resultatsTableId), (table) => {
     const yearsCount = extractYearsCount(table);
     const years = [];
     let tableRows = table.querySelectorAll("tr");
@@ -319,5 +368,8 @@
       const year = extractYearFromTable(tableRows, i);
       years.push(year);
     }
+
+    const json = JSON.stringify(years);
+    window.localStorage.setItem("grades", json);
   });
 })();

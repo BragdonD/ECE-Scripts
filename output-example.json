@@ -1,0 +1,1403 @@
+{
+  "years": [
+    {
+      "name": "  ING4 CLA 2023-2024",
+      "semesters": [
+        {
+          "name": "Semestre 1 >> MAJEURE SYSTEME D'INFORMATION >> TC Ing4",
+          "modules": [
+            {
+              "name": "Module Majeure Système d'Information S07",
+              "courses": [
+                {
+                  "name": "Bases de données avancées / Advanced data bases",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "DevOps with SRE / DevOps with SRE",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Systèmes d'exploitation / Operating Systems",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Technologies Web / Web Technologies",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Réseaux informatiques 1 / Computer Networks 1",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bonus ",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "LFH 1",
+              "courses": [
+                {
+                  "name": "Gestion Budgétaire / Budget Management",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Management d'Equipe / Team Management",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "English 7 / English",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet 1",
+              "courses": [
+                {
+                  "name": "Projet Pluridisciplinaire en équipe / Multidisciplinary Team Project",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Conduite de projets / Project Management",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Semestre 2 >> MAJEURE SYSTEME D'INFORMATION >> TC Ing4",
+          "modules": [
+            {
+              "name": "Module Majeure Système d'Information S08",
+              "courses": [
+                {
+                  "name": "Machine Learning 2 / Machine Learning 2",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Sécurité des Systèmes d'Information I / Information Systems Security I",
+                  "coefficient": 2.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Sécurité des Réseaux Informatiques / Computer Networks Security",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Machine Learning 1 / Machine Learning 1",
+                  "coefficient": 2.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Microsoft C# / Microsoft C#",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Mathematiques pour Data Scientist / Mathematics for Data Scientist",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Management des Systèmes d'Information / Information Systems Management",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bonus",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "LFH 2",
+              "courses": [
+                {
+                  "name": "English 8 / English",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Management des Entreprises / Corporate Management",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Management de la Relation Individuelle / Individual Relationship Management",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Le Dialogue social / Social Dialogue",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Ethique du manager / Manager Ethic's",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet 2",
+              "courses": [
+                {
+                  "name": "Projet Pluridisciplinaire en équipe / Multidisciplinary Team Project",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "VPE",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Stage ing4": {
+                    "weight": null,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Stage ing4 / Internship",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": null, "weight": 100 }]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "  Année 3 - 2022/2023 - Septembre - Initiale",
+      "semesters": [
+        {
+          "name": "Semestre 5 / Semester 5 >> Classique >> Programme ING3 à l'international au S5",
+          "modules": []
+        },
+        {
+          "name": "Semestre 6 / Semester 6 >> Classique >> Programme ING3 Inter S5-Paris S6",
+          "modules": [
+            {
+              "name": "Module Langues et Formation Humaine / Unit Languages, Communication and Management",
+              "courses": [
+                {
+                  "name": "Anglais 6 / English 6",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": 13.4, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": 11, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Coréen",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 19, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Droit du Travail / Labour Law",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 13, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "MOOC Actualités de la Géopolitique / MOOC News of Geopolitics",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 15.5, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Analyse financière et économique / Financial and Economic Analysis",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 13.5, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "MOOC Développement Durable / MOOC Sustainable Development",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 18.92, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet Impulse / Impulse Project Unit",
+              "courses": [
+                {
+                  "name": "MOOC Gestion de projet / MOOC Project",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 14.33, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Projet Impulse / Impulse Project",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Projet": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 12.5, "weight": 50 },
+                      { "value": 14, "weight": 50 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Sciences et Techniques / Unit Sciences and Technology",
+              "courses": [
+                {
+                  "name": "Bonus (s'ajoute à la moyenne) / Bonus points (added to the student’s average)",
+                  "coefficient": 1.9,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 12, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Calculs embarqués et traitement numérique du signal / Digital signal Processing",
+                  "coefficient": 5.5,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 44.44,
+                    "grades": [
+                      { "value": 13.48, "weight": 33.33 },
+                      { "value": 5, "weight": 66.67 }
+                    ]
+                  },
+                  "Controle continu": {
+                    "weight": 33.33,
+                    "grades": [
+                      { "value": 14, "weight": 33.33 },
+                      { "value": 18, "weight": 33.33 },
+                      { "value": 16, "weight": 33.33 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 22.22,
+                    "grades": [{ "value": 15, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "POO Java  / OOP Java",
+                  "coefficient": 4.5,
+                  "resit": null,
+                  "Contrôle continu": {
+                    "weight": 20,
+                    "grades": [
+                      { "value": 19, "weight": 33.33 },
+                      { "value": 19, "weight": 33.33 },
+                      { "value": 18.5, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 40,
+                    "grades": [{ "value": 12.5, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 40,
+                    "grades": [{ "value": 18.33, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Initiation Réseaux / Network Initiation",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 50,
+                    "grades": [{ "value": 11, "weight": 100 }]
+                  },
+                  "Controle continu": {
+                    "weight": 50,
+                    "grades": [{ "value": 20, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Probabilités et statistiques / Probability and Statistics ",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 83.33,
+                    "grades": [
+                      { "value": 14.5, "weight": 50 },
+                      { "value": 14.5, "weight": 50 }
+                    ]
+                  },
+                  "Controle continu": {
+                    "weight": 16.67,
+                    "grades": [{ "value": 11, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Thermodynamique  / Thermodynamics",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 11, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "MOOC Nanotechnologies / MOOC Nanotechnology",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 100,
+                    "grades": [{ "value": 14.9, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Stage / Unit Internship",
+              "courses": [
+                {
+                  "name": "Stage ING3 / Internship ING3",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 14, "weight": 100 }]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "  Année 2 - 2021/2022 - Septembre",
+      "semesters": [
+        {
+          "name": "Semestre 3 / Semester 3 >> Classique",
+          "modules": [
+            {
+              "name": "Module Langues et Formation Humaine / Unit Languages, Communication and Management",
+              "courses": [
+                {
+                  "name": "Anglais 3 / English 3",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": 14.95, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": 12.5, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Sciences Humaines / Social Science",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 16, "weight": 50 },
+                      { "value": 15, "weight": 50 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Espagnol / Spanish",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 15.7, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet ECE-CUP / Unit Project ECE-CUP",
+              "courses": [
+                {
+                  "name": "Projet ECE-CUP 3 / Project Management",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 15, "weight": 33.33 },
+                      { "value": 14, "weight": 66.67 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Sciences et Techniques / Unit Sciences and Technology",
+              "courses": [
+                {
+                  "name": "Bonus (s'ajoute à la moyenne) / Bonus points (added to the student’s average)",
+                  "coefficient": 2.2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 20, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Conception et Programmation Objet C++ / Design and Programming with C++",
+                  "coefficient": 6,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 16.67,
+                    "grades": [
+                      { "value": 17.3, "weight": 50 },
+                      { "value": 20, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 50,
+                    "grades": [
+                      { "value": 16.5, "weight": 50 },
+                      { "value": 17, "weight": 50 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 33.33,
+                    "grades": [{ "value": 19, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Probabilités & Analyse 3 / Probability & Analysis",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [
+                      { "value": 17, "weight": 33.33 },
+                      { "value": 11.5, "weight": 33.33 },
+                      { "value": 15, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 10.5, "weight": 33.33 },
+                      { "value": 6, "weight": 33.33 },
+                      { "value": 13, "weight": 33.33 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Electromagnétisme 1 / Electromagnetism 1",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 20,
+                    "grades": [{ "value": 7, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 80,
+                    "grades": [
+                      { "value": 14, "weight": 33.33 },
+                      { "value": 5.75, "weight": 33.33 },
+                      { "value": 14.25, "weight": 33.33 }
+                    ]
+                  }
+                },
+                {
+                  "name": "VHDL / VHDL",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Exam": {
+                    "weight": 33.33,
+                    "grades": [{ "value": 18.3, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 66.67,
+                    "grades": [{ "value": 17, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Systèmes bouclés / Closed-loop systems",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [
+                      { "value": 17.5, "weight": 50 },
+                      { "value": 4.5, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 10, "weight": 33.33 },
+                      { "value": 18.33, "weight": 66.67 }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Semestre 4 / Semester 4 >> Classique",
+          "modules": [
+            {
+              "name": "Module Langues et Formation Humaine / Unit Languages, Communication and Management",
+              "courses": [
+                {
+                  "name": "Anglais 4 / English 4",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": 15.4, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": 11.5, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Initiation à la gestion d'entreprise / Introduction to Business Management",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 16.5, "weight": 50 },
+                      { "value": 18, "weight": 50 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Sciences Humaines / Communication / Social Science",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 19, "weight": 33.33 },
+                      { "value": 19, "weight": 33.33 },
+                      { "value": 13.5, "weight": 33.33 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Espagnol / Spanish",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 14, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet ECE-CUP / Unit Project ECE-CUP",
+              "courses": [
+                {
+                  "name": "Projet ECE-CUP 4  / ECE CUP Project 4",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 11, "weight": 50 },
+                      { "value": 14.5, "weight": 50 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Sciences et Techniques / Unit Sciences and Technology",
+              "courses": [
+                {
+                  "name": "Algèbre 3 & Analyse 4 / Algebra 3 & Analysis 4",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [
+                      { "value": 17.5, "weight": 33.33 },
+                      { "value": 12, "weight": 33.33 },
+                      { "value": 18, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 12, "weight": 33.33 },
+                      { "value": 14.5, "weight": 33.33 },
+                      { "value": 6, "weight": 33.33 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Electromagnétisme 2 / Electromagnetism 2",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 20,
+                    "grades": [{ "value": 10, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 80,
+                    "grades": [
+                      { "value": 9.25, "weight": 33.33 },
+                      { "value": 11.25, "weight": 33.33 },
+                      { "value": 6.5, "weight": 33.33 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Théorie des graphes / Graph Theory",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 20,
+                    "grades": [
+                      { "value": 20, "weight": 33.33 },
+                      { "value": 20, "weight": 33.33 },
+                      { "value": 12, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 40,
+                    "grades": [{ "value": 17.25, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 40,
+                    "grades": [{ "value": 14, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bases de données / Databases",
+                  "coefficient": 1.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [{ "value": 14.5, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [{ "value": 10.25, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Electronique Fondamentale / Fundamental Electronics",
+                  "coefficient": 3.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [{ "value": 16.25, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 50,
+                    "grades": [{ "value": 12.67, "weight": 100 }]
+                  },
+                  "Projet": {
+                    "weight": 25,
+                    "grades": [{ "value": 15.75, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Du capteur à la mesure  / From sensor to measurement ",
+                  "coefficient": 1.5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 50,
+                    "grades": [{ "value": 13.9, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 50,
+                    "grades": [{ "value": 8.75, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bonus (s'ajoute à la moyenne) / Bonus points (added to the student’s average)",
+                  "coefficient": 1.9,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 20, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Stage / Unit Internship",
+              "courses": [
+                {
+                  "name": "Stage ING2 / Internship ING2",
+                  "coefficient": 4,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 14, "weight": 100 }]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "  Année 1 - 2020/2021 - Septembre et Mars",
+      "semesters": [
+        {
+          "name": "Semestre 1 / Semester 1 >> Classique",
+          "modules": [
+            {
+              "name": "Module Langues et Formation Humaine / Unit Languages, Communication and Management",
+              "courses": [
+                {
+                  "name": "Anglais 1 / English 1",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": 14.5, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": 16, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Espagnol / Spanish",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 17, "weight": 50 },
+                      { "value": 16, "weight": 50 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Sciences humaines / Communication",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 15, "weight": 100 }]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet ECE-CUP / Unit Project ECE-CUP",
+              "courses": [
+                {
+                  "name": "Projet Scientifique et Technique par Equipe 1 / Technical and Scientific Project in Team 1",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 9, "weight": 30 },
+                      { "value": 11.4, "weight": 15 },
+                      { "value": 9, "weight": 20 },
+                      { "value": 14, "weight": 35 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Sciences et Techniques / Unit Sciences and Technology",
+              "courses": [
+                {
+                  "name": "Mathématiques 1 / Mathematics 1",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [
+                      { "value": 18, "weight": 50 },
+                      { "value": 13.5, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 8.5, "weight": 12.5 },
+                      { "value": 11, "weight": 25 },
+                      { "value": 10.5, "weight": 25 },
+                      { "value": 9.25, "weight": 37.5 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Mécanique et Oscillations 1 / Mechanics and Oscillations 1",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [{ "value": 13.5, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 13.23, "weight": 14.29 },
+                      { "value": 13, "weight": 28.57 },
+                      { "value": 15, "weight": 28.57 },
+                      { "value": 10.25, "weight": 28.57 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Algorithmique et Programmation Structurée / Algorithm and Structured Programming",
+                  "coefficient": 6,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 20,
+                    "grades": [
+                      { "value": 19, "weight": 50 },
+                      { "value": 14, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 40,
+                    "grades": [
+                      { "value": 15.75, "weight": 50 },
+                      { "value": 14.75, "weight": 50 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 40,
+                    "grades": [{ "value": 17, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Circuit Electrique Analogique & Numérique / Analog and Digital Electrical Circuit",
+                  "coefficient": 6,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [
+                      { "value": 16, "weight": 50 },
+                      { "value": 7, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 44.44,
+                    "grades": [
+                      { "value": 20, "weight": 25 },
+                      { "value": 12, "weight": 25 },
+                      { "value": 15, "weight": 50 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 22.22,
+                    "grades": [{ "value": 17.75, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bonus (s'ajoute à la moyenne) / Bonus points (added to the student’s average)",
+                  "coefficient": 2.2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 19.7, "weight": 100 }]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Semestre 2 / Semester 2 >> Classique",
+          "modules": [
+            {
+              "name": "Module Langues et Formation Humaine / Unit Languages, Communication and Management",
+              "courses": [
+                {
+                  "name": "Anglais 2 / English 2",
+                  "coefficient": 3,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 75,
+                    "grades": [{ "value": 14.85, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 25,
+                    "grades": [{ "value": 14, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Espagnol / Spanish",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [{ "value": 16.5, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Sciences Humaines / Communication",
+                  "coefficient": 2,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 16, "weight": 33.33 },
+                      { "value": 18, "weight": 66.67 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Projet ECE-CUP / Unit Project ECE-CUP",
+              "courses": [
+                {
+                  "name": "Projet Scientifique et Technique par Equipe 2 / Technical and Scientific Project in Team 2",
+                  "coefficient": 1,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 100,
+                    "grades": [
+                      { "value": 12.3, "weight": 40 },
+                      { "value": 12, "weight": 20 },
+                      { "value": 9.8, "weight": 20 },
+                      { "value": 12.67, "weight": 20 }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Module Sciences et Techniques / Unit Sciences and Technology",
+              "courses": [
+                {
+                  "name": "Mathématiques 2 / Mathematics 2",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [
+                      { "value": 15, "weight": 33.33 },
+                      { "value": 20, "weight": 33.33 },
+                      { "value": 20, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 13.5, "weight": 28.57 },
+                      { "value": 9.5, "weight": 28.57 },
+                      { "value": 17.5, "weight": 42.86 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Mécanique et Oscillations 2 / Mechanics and Oscillations 2",
+                  "coefficient": 5,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 25,
+                    "grades": [{ "value": 13, "weight": 100 }]
+                  },
+                  "Exam": {
+                    "weight": 75,
+                    "grades": [
+                      { "value": 16, "weight": 25 },
+                      { "value": 14, "weight": 25 },
+                      { "value": 14.25, "weight": 50 }
+                    ]
+                  }
+                },
+                {
+                  "name": "Informatique 2 / Computing 2",
+                  "coefficient": 6,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 20,
+                    "grades": [
+                      { "value": 19, "weight": 33.33 },
+                      { "value": 20, "weight": 33.33 },
+                      { "value": 17, "weight": 33.33 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 40,
+                    "grades": [
+                      { "value": 15.5, "weight": 50 },
+                      { "value": 15.5, "weight": 50 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 40,
+                    "grades": [{ "value": 18.42, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Circuit Electrique Analogique & Numérique / Analog and Digital Electrical Circuit",
+                  "coefficient": 6,
+                  "resit": null,
+                  "Continu": {
+                    "weight": 33.33,
+                    "grades": [
+                      { "value": 17.25, "weight": 50 },
+                      { "value": 11, "weight": 50 }
+                    ]
+                  },
+                  "Exam": {
+                    "weight": 44.44,
+                    "grades": [
+                      { "value": 12.5, "weight": 25 },
+                      { "value": 12, "weight": 25 },
+                      { "value": 8.5, "weight": 50 }
+                    ]
+                  },
+                  "Projet": {
+                    "weight": 22.22,
+                    "grades": [{ "value": 15.25, "weight": 100 }]
+                  }
+                },
+                {
+                  "name": "Bonus (s'ajoute à la moyenne) / Bonus points (added to the student’s average)",
+                  "coefficient": 2.2,
+                  "resit": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
