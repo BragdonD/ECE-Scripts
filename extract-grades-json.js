@@ -17,20 +17,9 @@
 
 /**
  * @typedef {Object} CourseGradePart
+ * @property {string} name
  * @property {number} weight
  * @property {Array.<Grades>} grades
- */
-
-/**
- * @typedef {CourseGradePart} Continuous
- */
-
-/**
- * @typedef {CourseGradePart} Exams
- */
-
-/**
- * @typedef {CourseGradeParts} Projects
  */
 
 /**
@@ -40,9 +29,7 @@
 /**
  * @typedef {Object} Course
  * @property {string} name
- * @property {Continuous} continuous
- * @property {Exams} exams
- * @property {Projects} projects
+ * @property {Array.<CourseGradePart>} courseParts // the name of the part are not always the same
  * @property {number} coefficient // ECTS
  * @property {Resit} resit
  */
@@ -72,14 +59,8 @@
   const resultatsTableId = "table_note";
   const yearRowClass = "master";
   const semesterAndModuleRowClass = "item-ens";
-  const semesterStr = "Semestre";
+  const semesterStr = ["Semestre"];
   const semesterMistakeStr = "Semestre Académique";
-  const moduleStr = ["Module", "LFH"];
-  const moduleMistakeStr = ["Module Mineure"];
-  const continuousStr = ["Continu"];
-  const renameContinuousStr = "Continu";
-  const examsStr = ["Exam"];
-  const projectsStr = ["Projet"];
   const courseRowClass = "item-fpc";
   const coursePartClass = "item-ev1";
   const nameColumnClass = "libelle";
@@ -97,11 +78,21 @@
     return;
   }
 
+  /**
+   * Extract the number of years in the table
+   * @param {HTMLTableElement} table 
+   * @returns {number} the number of years in the table
+   */
   const extractYearsCount = (table) => {
     const years = table.querySelectorAll(".".concat(yearRowClass));
     return years.length;
   };
 
+  /**
+   * Extract the grades from a string
+   * @param {string} str 
+   * @returns {Array.<Grade>} the extracted grades from str
+   */
   const extractGrades = (str) => {
     let grades = str.split(" - ");
     grades = grades.map((grade) => {
@@ -128,6 +119,11 @@
     return grades;
   };
 
+  /**
+   * 
+   * @param {} coursePartRow 
+   * @returns 
+   */
   const extractCoursePartFromTable = (coursePartRow) => {
     let coursePart = {
       name: coursePartRow.querySelector(".".concat(nameColumnClass)).innerText,
@@ -146,7 +142,7 @@
   /**
    *
    * @param {*} courseRow
-   * @returns
+   * @returns {Course}
    */
   const extractCourseInformation = (courseRow) => {
     return {
@@ -159,6 +155,7 @@
       resit: parseFloat(
         courseRow.querySelector(".".concat(resitColumnClass)).innerText
       ),
+      courseParts: []
     };
   };
 
@@ -170,8 +167,14 @@
     return coursesRows.length;
   };
 
-  const extractCourseFromTable = (moduleRow, i) => {
-    const rows = Array.from(moduleRow);
+  /** 
+   * Extract the course from the module rows
+   * @param {Array.<HTMLTableRowElement>} moduleRows rows of the table corresponding to the module
+   * @param {number} i module's index
+   * @returns {Course} the course extracted from the table
+   */
+  const extractCourseFromTable = (moduleRows, i) => {
+    const rows = Array.from(moduleRows);
     let coursesRows = rows.filter((row) =>
       row.querySelector(".".concat(courseRowClass))
     );
@@ -181,31 +184,17 @@
       nextCourseRowIndex = rows.length;
     }
     const courseRows = rows.slice(courseRowIndex, nextCourseRowIndex);
-    let course = {};
+    console.log(courseRows, courseRowIndex, nextCourseRowIndex);
+    /**
+     * @type {Course}
+     */
+    let course = {}
     if (courseRows.length >= 1) {
       course = extractCourseInformation(courseRows[0]);
     }
     for (let i = 1; i < courseRows.length; i++) {
-      let { name, ...coursePart } = extractCoursePartFromTable(courseRows[i]);
-      for (let j = 0; j < continuousStr.length; j++) {
-        if (name.includes(continuousStr[j])) {
-          name = renameContinuousStr;
-          break;
-        }
-      }
-      for (let j = 0; j < examsStr.length; j++) {
-        if (name.includes(examsStr[j])) {
-          name = examsStr[0];
-          break;
-        }
-      }
-      for (let j = 0; j < projectsStr.length; j++) {
-        if (name.includes(projectsStr[j])) {
-          name = projectsStr[0];
-          break;
-        }
-      }
-      course[name] = coursePart;
+      let coursePart = extractCoursePartFromTable(courseRows[i]);
+      course.courseParts.push(coursePart);
     }
     return course;
   };
@@ -222,8 +211,8 @@
       row.querySelector(".".concat(semesterAndModuleRowClass))
     );
     modulesRows = modulesRows.filter((row) => {
-      for (let i = 0; i < moduleStr.length; i++) {
-        if (row.innerText.includes(moduleStr[i])) {
+      for (let i = 0; i < semesterStr.length; i++) {
+        if (!row.innerText.includes(semesterStr[i])) {
           return true;
         }
       }
@@ -237,20 +226,23 @@
     let modulesRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
     );
+    console.log("before filter", modulesRows);
     modulesRows = modulesRows.filter((row) => {
-      for (let i = 0; i < moduleStr.length; i++) {
-        if (row.innerText.includes(moduleStr[i])) {
+      for (let i = 0; i < semesterStr.length; i++) {
+        if (!row.innerText.includes(semesterStr[i])) {
           return true;
         }
       }
       return false;
     });
+    console.log("after filter", modulesRows);
     const moduleRowIndex = rows.indexOf(modulesRows[i]);
     let nextModuleRowIndex = rows.indexOf(modulesRows[i + 1]);
     if (nextModuleRowIndex === -1) {
       nextModuleRowIndex = rows.length;
     }
     const moduleRows = rows.slice(moduleRowIndex, nextModuleRowIndex);
+    console.log("after slice", moduleRows, moduleRowIndex, nextModuleRowIndex);
     const courses = [];
     for (let i = 0; i < extractCourseNumberFromTable(moduleRows); i++) {
       courses.push(extractCourseFromTable(moduleRows, i));
@@ -340,13 +332,6 @@
       row.querySelector(".".concat(semesterAndModuleRowClass))
     );
     for (let i = 0; i < semestersAndModuleRows.length; i++) {
-      for (let j = 0; j < moduleStr.length; j++) {
-        if (semestersAndModuleRows[i].innerText.includes(moduleMistakeStr[j])) {
-          const rowIndex = rows.indexOf(semestersAndModuleRows[i]);
-          tableRows.item(rowIndex).remove();
-          break;
-        }
-      }
       if (semestersAndModuleRows[i].innerText === "") {
         // no name module that are a mistake
         const rowIndex = rows.indexOf(semestersAndModuleRows[i]);
