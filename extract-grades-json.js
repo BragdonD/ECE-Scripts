@@ -184,7 +184,6 @@
       nextCourseRowIndex = rows.length;
     }
     const courseRows = rows.slice(courseRowIndex, nextCourseRowIndex);
-    console.log(courseRows, courseRowIndex, nextCourseRowIndex);
     /**
      * @type {Course}
      */
@@ -226,7 +225,6 @@
     let modulesRows = rows.filter((row) =>
       row.querySelector(".".concat(semesterAndModuleRowClass))
     );
-    console.log("before filter", modulesRows);
     modulesRows = modulesRows.filter((row) => {
       for (let i = 0; i < semesterStr.length; i++) {
         if (!row.innerText.includes(semesterStr[i])) {
@@ -235,14 +233,12 @@
       }
       return false;
     });
-    console.log("after filter", modulesRows);
     const moduleRowIndex = rows.indexOf(modulesRows[i]);
     let nextModuleRowIndex = rows.indexOf(modulesRows[i + 1]);
     if (nextModuleRowIndex === -1) {
       nextModuleRowIndex = rows.length;
     }
     const moduleRows = rows.slice(moduleRowIndex, nextModuleRowIndex);
-    console.log("after slice", moduleRows, moduleRowIndex, nextModuleRowIndex);
     const courses = [];
     for (let i = 0; i < extractCourseNumberFromTable(moduleRows); i++) {
       courses.push(extractCourseFromTable(moduleRows, i));
