@@ -19,7 +19,8 @@
  * @typedef {Object} CourseGradePart
  * @property {string} name
  * @property {number} weight
- * @property {Array.<Grades>} grades
+ * @property {Array.<Grade>} grades
+ * @property {number} average
  */
 
 /**
@@ -32,12 +33,14 @@
  * @property {Array.<CourseGradePart>} courseParts // the name of the part are not always the same
  * @property {number} coefficient // ECTS
  * @property {Resit} resit
+ * @property {number} average
  */
 
 /**
  * @typedef {Object} Module
  * @property {string} name
  * @property {Array.<Course>} courses
+ * @property {number} average
  */
 
 /**
