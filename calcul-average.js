@@ -61,6 +61,7 @@
     'use strict';
     const resultatsContainerId = "resultat-note";
     const resultatsTableId = "table_note";
+    const averageLocalStorage = "compute-average"
 
     const resultsContainer = document.querySelector(
         "#".concat(resultatsContainerId)
@@ -187,7 +188,6 @@
     const computeCourseAverage = (course) => {
         let availableCP = 0;
         for (const coursePart of course.courseParts) {
-            console.log(coursePart.average, coursePart.weight);
             course.average += coursePart.average * (coursePart.weight / 100);
             if (coursePart.weight > 0) {
                 availableCP += 1;
@@ -198,7 +198,6 @@
         } else {
             course.average = Number(course.average.toFixed(2));
         }
-        console.log(course.name, course.average);
         return course;
     }
 
@@ -214,11 +213,10 @@
             totalCoeff += course.coefficient
         }
         if (totalCoeff > 0) {
-            module.average = module.average / totalCoeff;
+            module.average = Number((module.average / totalCoeff).toFixed(2));
         } else {
             module.average = undefined
         }
-        console.log(module.name, module.average)
         return module;
     }
 
@@ -282,5 +280,6 @@
         );
 
         window.localStorage.setItem("grades", JSON.stringify(grades));
+        window.localStorage.setItem(averageLocalStorage, true);
     });
 })();

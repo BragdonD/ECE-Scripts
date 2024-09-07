@@ -138,6 +138,7 @@
       grades: extractGrades(
         coursePartRow.querySelector(".".concat(gradeColumnClass)).innerText
       ),
+      average: 0
     };
     return coursePart;
   };
@@ -198,12 +199,14 @@
       let coursePart = extractCoursePartFromTable(courseRows[i]);
       course.courseParts.push(coursePart);
     }
+    course.average = 0;
     return course;
   };
 
   const extractModuleInformation = (moduleRow) => {
     return {
       name: moduleRow.querySelector(".".concat(nameColumnClass)).innerText,
+      average: 0
     };
   };
 
