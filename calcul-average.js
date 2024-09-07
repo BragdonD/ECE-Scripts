@@ -6,6 +6,7 @@
 // @author       BragdonD
 // @match        https://campusonline.inseec.net/note/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/arrive/2.4.1/arrive.min.js
+// 
 // @grant        none
 // @updateURL    https://github.com/BragdonD/ECE-Scripts/blob/main/averagecalcul.js
 // ==/UserScript==
@@ -69,28 +70,6 @@
 
     if (!resultsContainer) {
         return;
-    }
-    /**
-     * retrieves the grades from the local storage
-     * @returns {Year[] | null} The grades retrieves from local storage
-     */
-    const retrievesGradesFromLocalStorage = () => {
-        let retry = 0;
-        /**
-         * @type {Year[]}
-         */
-        let grades = [];
-        // wait for max 15s (the extract script should have had enough time to end)
-        do {
-            grades = window.localStorage.getItem("grades");
-            retry += 1;
-            setTimeout(() => { }, 5000);
-            if (retry > 3) {
-                console.error("timeout while trying to retrieves the grades from the local storage");
-                return null;
-            }
-        } while (grades == null);
-        return grades;
     }
 
     /**
@@ -175,6 +154,11 @@
             return cp;
         }
         for (const grade of cp.grades) {
+            if(grade.value == null) {
+                cp.average = undefined;
+                cp.weight = 0;
+                return cp;
+            }
             cp.average += grade.value * (grade.weight / 100);
         }
         cp.average = Number(cp.average.toFixed(2));
@@ -195,8 +179,12 @@
         }
         if (availableCP == 0) {
             course.average = undefined
+            course.coefficient = 0
         } else {
             course.average = Number(course.average.toFixed(2));
+        }
+        if (course.resit != undefined && course.resit != null) {
+            course.average = course.resit
         }
         return course;
     }
@@ -220,14 +208,13 @@
         return module;
     }
 
-    resultsContainer.arrive("#".concat(resultatsTableId), (table) => {
-        let grades = retrievesGradesFromLocalStorage();
+    window.addEventListener("extract-grades", () => {
+        let grades = window.localStorage.getItem("grades")
         if (grades == null) {
             return;
         }
-
         grades = JSON.parse(grades)
-
+        console.log("STARTING TO COMPUTE AVERAGES")
         // kinda forced due to composition
         grades.forEach(
             /**
@@ -280,6 +267,7 @@
         );
 
         window.localStorage.setItem("grades", JSON.stringify(grades));
-        window.localStorage.setItem(averageLocalStorage, true);
+        console.log("DONE WITH AVERAGE COMPUTING")
+        window.dispatchEvent(new Event("compute-averages"));
     });
 })();

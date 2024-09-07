@@ -346,6 +346,7 @@
   };
 
   resultsContainer.arrive("#".concat(resultatsTableId), (table) => {
+    console.log("STARTING TO EXTRACT GRADES")
     const yearsCount = extractYearsCount(table);
     const years = [];
     let tableRows = table.querySelectorAll("tr");
@@ -358,5 +359,7 @@
 
     const json = JSON.stringify(years);
     window.localStorage.setItem("grades", json);
+    console.log("DONE WITH EXTRACTION")
+    window.dispatchEvent(new Event("extract-grades"));
   });
 })();

@@ -92,7 +92,6 @@
                 continue
             }
             const fc = cn[0];
-            console.log(pn.tagName)
             // if it is the table's header
             if (pn.tagName === "THEAD" && !fc.classList.contains(studentNameHeaderCssClass)) {
                 const newHeader = document.createElement('th');
@@ -240,41 +239,18 @@
         );
     }
 
-    /**
-       * retrieves the grades from the local storage
-       * @returns {Year[] | null} The grades retrieves from local storage
-       */
-    const retrievesGradesFromLocalStorage = () => {
-        let retry = 0;
-        /**
-         * @type {Year[]}
-         */
-        let grades = [];
-        let computed = null;
-        // wait for max 15s (the extract script should have had enough time to end)
-        do {
-            computed = window.localStorage.getItem("compute-average");
-            retry += 1;
-            setTimeout(() => { }, 5000);
-            if (retry > 4) {
-                console.error("timeout while trying to retrieves the compute average proof from the local storage");
-                return null;
-            }
-            grades = window.localStorage.getItem("grades");
-        } while (computed == null);
-        return grades;
-    }
-
-    resultsContainer.arrive("#".concat(resultatsTableId), (table) => {
+    window.addEventListener("compute-averages", () => {
+        const table = document.querySelector("#".concat(resultatsTableId));
         modifyTable(table);
-        let grades = retrievesGradesFromLocalStorage();
+        let grades = window.localStorage.getItem("grades");
         if (grades == null) {
             return;
         }
+        console.log("STARTING TO DISPLAY AVERAGES")
 
         grades = JSON.parse(grades)
         insertGradesInTable(table, grades);
         window.localStorage.removeItem(averageLocalStorage)
-
+        window.localStorage.removeItem("grades")
     });
 })();
