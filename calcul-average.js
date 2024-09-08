@@ -13,49 +13,43 @@
 
 /**
  * @typedef {Object} Grade
- * @property {number} value
- * @property {number} weight
+ * @property {number} value - The value of the grade.
+ * @property {number} weight - The weight of the grade.
  */
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name
- * @property {number} weight
- * @property {Array.<Grade>} grades
- * @property {number} average
+ * @property {string} name - The name of the course grade part. 
+ * @property {number} weight - The weight of the course grade part.r} 
+ * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGradeParts} Resit
- */
-
-/**
- * @typedef {Object} Course
- * @property {string} name
- * @property {Array.<CourseGradePart>} courseParts // the name of the part are not always the same
- * @property {number} coefficient // ECTS
- * @property {Resit} resit
+ * @typedef {CourseGrade} 
+ * @property {string} name - The name of the course. 
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
+ * @property {number} coefficient - The coefficient of the course. 
  * @property {number} average
  */
 
 /**
  * @typedef {Object} Module
- * @property {string} name
- * @property {Array.<Course>} courses
- * @property {number} average
+ * @property {string} name - The name of the module.
+ * @property {Array.<Course>} courses - The courses of the module.
+ * @property {number} average - The average grade of the module.
  */
 
 /**
  * @typedef {Object} Semester
- * @property {string} name
- * @property {Array.<Module>} modules
- * @note All semester count the same in the year average
+ * @property {string} name - The name of the semester.
+ * @property {Array.<Module>} modules - The modules of the semester.
  */
 
 /**
  * @typedef {Object} Year
- * @property {string} name
- * @property {Array.<Semester>} semesters
+ * @property {string} name - The name of the year.
+ * @property {Array.<Semester>} semesters - The semesters of the year.
  */
 
 (function () {
@@ -71,11 +65,12 @@
     if (!resultsContainer) {
         return;
     }
-
+    
     /**
+     * Homogenizes the weights of grades in a course part.
      * 
-     * @param {CourseGradePart} coursePart 
-     * @returns {CourseGradePart}
+     * @param {Object} coursePart - The course part object containing grades.
+     * @returns {Object} - The course part object with homogenized weights.
      */
     const homogenizeCoursePartGradesWeight = (coursePart) => {
         const maxPossibleWeight = 100; // for 100%
@@ -94,11 +89,13 @@
         })
         return coursePart;
     }
-
+    
     /**
-     * 
-     * @param {Course} course 
-     * @returns {Course}
+     * Homogenizes the weight of each course part in a course.
+     * If the total weight of all course parts is less than 100, the weights are adjusted proportionally to make the total weight equal to 100.
+     * If the total weight is already 100 or more, the course is returned unchanged.
+     * @param {Object} course - The course object containing course parts.
+     * @returns {Object} - The course object with homogenized course part weights.
      */
     const homogenizeCoursePartWeight = (course) => {
         const maxPossibleWeight = 100;
@@ -122,11 +119,12 @@
         })
         return course;
     }
-
+    
     /**
+     * Homogenizes the coefficient of each course in the given module.
      * 
-     * @param {Module} module 
-     * @returns {Module}
+     * @param {Object} module - The module object containing courses.
+     * @returns {Object} - The modified module object with homogenized coefficients.
      */
     const homogenizeModuleCoursesCoeff = (module) => {
         module.courses.forEach((course) => {
@@ -142,11 +140,15 @@
         })
         return module;
     }
-
+    
     /**
+     * Computes the average for a course part.
      * 
-     * @param {CourseGradePart} cp 
-     * @returns {CourseGradePart}
+     * @param {Object} cp - The course part object.
+     * @param {Array} cp.grades - The array of grades for the course part.
+     * @param {number} cp.average - The average of the course part.
+     * @param {number} cp.weight - The weight of the course part.
+     * @returns {Object} - The updated course part object with the computed average.
      */
     const computeCoursePartAverage = (cp) => {
         if (cp.grades.length == 0) {
@@ -190,9 +192,10 @@
     }
 
     /**
-     * 
-     * @param {Module} module 
-     * @returns {Module}
+     * Computes the average for a given module.
+     *
+     * @param {Object} module - The module object containing courses.
+     * @returns {Object} - The module object with the computed average.
      */
     const computeModuleAverage = (module) => {
         let totalCoeff = 0;

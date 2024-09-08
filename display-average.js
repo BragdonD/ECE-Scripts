@@ -11,49 +11,43 @@
 
 /**
  * @typedef {Object} Grade
- * @property {number} value
- * @property {number} weight
+ * @property {number} value - The value of the grade.
+ * @property {number} weight - The weight of the grade.
  */
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name
- * @property {number} weight
- * @property {Array.<Grade>} grades
- * @property {number} average
+ * @property {string} name - The name of the course grade part. 
+ * @property {number} weight - The weight of the course grade part.r} 
+ * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGradeParts} Resit
- */
-
-/**
- * @typedef {Object} Course
- * @property {string} name
- * @property {Array.<CourseGradePart>} courseParts // the name of the part are not always the same
- * @property {number} coefficient // ECTS
- * @property {Resit} resit
+ * @typedef {CourseGrade} 
+ * @property {string} name - The name of the course. 
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
+ * @property {number} coefficient - The coefficient of the course. 
  * @property {number} average
  */
 
 /**
  * @typedef {Object} Module
- * @property {string} name
- * @property {Array.<Course>} courses
- * @property {number} average
+ * @property {string} name - The name of the module.
+ * @property {Array.<Course>} courses - The courses of the module.
+ * @property {number} average - The average grade of the module.
  */
 
 /**
  * @typedef {Object} Semester
- * @property {string} name
- * @property {Array.<Module>} modules
- * @note All semester count the same in the year average
+ * @property {string} name - The name of the semester.
+ * @property {Array.<Module>} modules - The modules of the semester.
  */
 
 /**
  * @typedef {Object} Year
- * @property {string} name
- * @property {Array.<Semester>} semesters
+ * @property {string} name - The name of the year.
+ * @property {Array.<Semester>} semesters - The semesters of the year.
  */
 
 (function () {
@@ -79,8 +73,8 @@
     }
 
     /**
-     * 
-     * @param {HTMLTableElement} table 
+     * Modifies the table to add the average column and the average row.
+     * @param {HTMLTableElement} table - The table to modify.
      */
     const modifyTable = (table) => {
         const rows = table.rows
@@ -116,10 +110,11 @@
     }
 
     /**
+     * Finds a course and module row by name in a table.
      * 
-     * @param {HTMLTableElement} table 
-     * @param {string} name
-     * @returns 
+     * @param {HTMLTableElement} table - The table to search in.
+     * @param {string} name - The name to search for.
+     * @returns {HTMLTableRowElement|null} - The found row or null if not found.
      */
     const findCourseAndModuleRowByName = (table, name) => {
         const rows = Array.from(table.rows);
@@ -137,10 +132,12 @@
     }
 
     /**
+     * Finds a row in a table by the given course name and course part name.
      * 
-     * @param {HTMLTableElement} table 
-     * @param {string} cname 
-     * @param {string} cpname 
+     * @param {HTMLTableElement} table - The table to search in.
+     * @param {string} cname - The course name to search for.
+     * @param {string} cpname - The course part name to search for.
+     * @returns {HTMLTableRowElement|null} - The row containing the course part, or null if not found.
      */
     const findCoursePartRowByCourseName = (table, cname, cpname) => {
         const rows = Array.from(table.rows);
@@ -161,9 +158,11 @@
     }
 
     /**
+     * Inserts a grade into a row.
      * 
-     * @param {HTMLTableRowElement} row 
-     * @param {number} grade
+     * @param {HTMLElement} row - The row element where the grade will be inserted.
+     * @param {string} grade - The grade to be inserted.
+     * @returns {void}
      */
     const insertGradeInRow = (row, grade) => {
         const rows = Array.from(row.children)
@@ -173,10 +172,13 @@
         averageChild.textContent = grade;
     }
 
+    
     /**
+     * Inserts grades into a table.
      * 
-     * @param {HTMLTableElement} table 
-     * @param {Year[]} grades 
+     * @param {HTMLTableElement} table - The table element to insert grades into.
+     * @param {Array<Year>} grades - An array of Year objects containing grades.
+     * @returns {void}
      */
     const insertGradesInTable = (table, grades) => {
         // kinda forced due to composition

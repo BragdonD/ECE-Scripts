@@ -11,49 +11,43 @@
 
 /**
  * @typedef {Object} Grade
- * @property {number} value
- * @property {number} weight
+ * @property {number} value - The value of the grade.
+ * @property {number} weight - The weight of the grade.
  */
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name
- * @property {number} weight
- * @property {Array.<Grade>} grades
- * @property {number} average
+ * @property {string} name - The name of the course grade part. 
+ * @property {number} weight - The weight of the course grade part.r} 
+ * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGradeParts} Resit
- */
-
-/**
- * @typedef {Object} Course
- * @property {string} name
- * @property {Array.<CourseGradePart>} courseParts // the name of the part are not always the same
- * @property {number} coefficient // ECTS
- * @property {Resit} resit
+ * @typedef {CourseGrade} 
+ * @property {string} name - The name of the course. 
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
+ * @property {number} coefficient - The coefficient of the course. 
  * @property {number} average
  */
 
 /**
  * @typedef {Object} Module
- * @property {string} name
- * @property {Array.<Course>} courses
- * @property {number} average
+ * @property {string} name - The name of the module.
+ * @property {Array.<Course>} courses - The courses of the module.
+ * @property {number} average - The average grade of the module.
  */
 
 /**
  * @typedef {Object} Semester
- * @property {string} name
- * @property {Array.<Module>} modules
- * @note All semester count the same in the year average
+ * @property {string} name - The name of the semester.
+ * @property {Array.<Module>} modules - The modules of the semester.
  */
 
 /**
  * @typedef {Object} Year
- * @property {string} name
- * @property {Array.<Semester>} semesters
+ * @property {string} name - The name of the year.
+ * @property {Array.<Semester>} semesters - The semesters of the year.
  */
 
 (function () {
@@ -122,10 +116,12 @@
     return grades;
   };
 
+
   /**
+   * Extracts a course part from a table row.
    * 
-   * @param {} coursePartRow 
-   * @returns 
+   * @param {HTMLElement} coursePartRow - The table row containing the course part.
+   * @returns {Object} - The extracted course part object.
    */
   const extractCoursePartFromTable = (coursePartRow) => {
     let coursePart = {
@@ -144,9 +140,13 @@
   };
 
   /**
-   *
-   * @param {*} courseRow
-   * @returns {Course}
+   * Extracts course information from a course row element.
+   * @param {HTMLElement} courseRow - The course row element.
+   * @returns {Object} - The extracted course information.
+   * @property {string} name - The name of the course.
+   * @property {number} coefficient - The coefficient of the course.
+   * @property {number} resit - The resit value of the course.
+   * @property {Array} courseParts - The array of course parts.
    */
   const extractCourseInformation = (courseRow) => {
     return {
@@ -163,6 +163,12 @@
     };
   };
 
+  /**
+   * Extracts the number of courses from the given module rows.
+   *
+   * @param {NodeList} moduleRows - The module rows to extract the course number from.
+   * @returns {number} The number of courses extracted from the module rows.
+   */
   const extractCourseNumberFromTable = (moduleRows) => {
     const rows = Array.from(moduleRows);
     let coursesRows = rows.filter((row) =>
@@ -203,29 +209,13 @@
     return course;
   };
 
-  const extractModuleInformation = (moduleRow) => {
-    return {
-      name: moduleRow.querySelector(".".concat(nameColumnClass)).innerText,
-      average: 0
-    };
-  };
-
-  const extractModuleNumberFromTable = (semesterRows) => {
-    const rows = Array.from(semesterRows);
-    let modulesRows = rows.filter((row) =>
-      row.querySelector(".".concat(semesterAndModuleRowClass))
-    );
-    modulesRows = modulesRows.filter((row) => {
-      for (let i = 0; i < semesterStr.length; i++) {
-        if (!row.innerText.includes(semesterStr[i])) {
-          return true;
-        }
-      }
-      return false;
-    });
-    return modulesRows.length;
-  };
-
+  /**
+   * Extracts module information from a module row.
+   * 
+   * @param {HTMLElement} moduleRow - The module row element.
+   * @returns {Object} - The extracted module information.
+   * @property {string} name - The name of the module.   * @property {number} average - The average grade of the module.
+   */
   const extractModuleFromTable = (semesterRows, i) => {
     const rows = Array.from(semesterRows);
     let modulesRows = rows.filter((row) =>
@@ -255,6 +245,13 @@
     };
   };
 
+  /**
+   * Extracts semester information from a given semester row.
+   * 
+   * @param {HTMLElement} semesterRow - The HTML element representing the semester row.
+   * @returns {Object} - An object containing the extracted semester information.
+   * @property {string} name - The name of the semester.
+   */
   const extractSemesterInformation = (semesterRow) => {
     return {
       name: semesterRow.querySelector(".".concat(nameColumnClass)).innerText,
@@ -262,9 +259,11 @@
   }
 
   /**
-   * Extract all the data for a
-   * @param {Array<Element>} yearRows the rows of the table corresponding to the year
-   * @param {number} i the index of the semester
+   * Extracts the semester information from a table of year rows.
+   * 
+   * @param {NodeList} yearRows - The list of year rows in the table.
+   * @param {number} i - The index of the semester row to extract.
+   * @returns {Object} - The extracted semester information, including modules.
    */
   const extractSemesterFromTable = (yearRows, i) => {
     const rows = Array.from(yearRows);
@@ -294,6 +293,11 @@
     }
   };  
 
+  /**
+   * Extracts year information from a given year row.
+   * @param {HTMLElement} yearRow - The year row element.
+   * @returns {Object} - The extracted year information.
+   */
   const extractYearInformation = (yearRow) => {
     return {
       name: yearRow.querySelector(".".concat(nameColumnClass)).innerText,
