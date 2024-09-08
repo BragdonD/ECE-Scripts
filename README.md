@@ -1,4 +1,3 @@
-# ECE-Scripts
 # INSEEC Education Group Scripts
 
 This repository contains various scripts and enhancements for the students of the INSEEC education group, now OMNES education. These scripts are originally created and intended for use with the browser extension known as Tampermonkey. However, they should be compatible with any Script Manager.
