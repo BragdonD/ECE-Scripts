@@ -6,7 +6,7 @@
 // @author       BragdonD
 // @match        https://campusonline.inseec.net/note/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/arrive/2.4.1/arrive.min.js
-// 
+//
 // @grant        none
 // @updateURL    https://github.com/BragdonD/ECE-Scripts/blob/main/averagecalcul.js
 // ==/UserScript==
@@ -19,17 +19,17 @@
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name - The name of the course grade part. 
- * @property {number} weight - The weight of the course grade part.r} 
- * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {string} name - The name of the course grade part.
+ * @property {number} weight - The weight of the course grade part.r}
+ * @property {Array.<Grade>} grades - The grades of the course grade part.
  * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGrade} 
- * @property {string} name - The name of the course. 
- * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
- * @property {number} coefficient - The coefficient of the course. 
+ * @typedef {CourseGrade}
+ * @property {string} name - The name of the course.
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts.
+ * @property {number} coefficient - The coefficient of the course.
  * @property {number} average
  */
 
@@ -65,10 +65,10 @@
     if (!resultsContainer) {
         return;
     }
-    
+
     /**
      * Homogenizes the weights of grades in a course part.
-     * 
+     *
      * @param {Object} coursePart - The course part object containing grades.
      * @returns {Object} - The course part object with homogenized weights.
      */
@@ -89,7 +89,7 @@
         })
         return coursePart;
     }
-    
+
     /**
      * Homogenizes the weight of each course part in a course.
      * If the total weight of all course parts is less than 100, the weights are adjusted proportionally to make the total weight equal to 100.
@@ -119,10 +119,10 @@
         })
         return course;
     }
-    
+
     /**
      * Homogenizes the coefficient of each course in the given module.
-     * 
+     *
      * @param {Object} module - The module object containing courses.
      * @returns {Object} - The modified module object with homogenized coefficients.
      */
@@ -140,10 +140,10 @@
         })
         return module;
     }
-    
+
     /**
      * Computes the average for a course part.
-     * 
+     *
      * @param {Object} cp - The course part object.
      * @param {Array} cp.grades - The array of grades for the course part.
      * @param {number} cp.average - The average of the course part.
@@ -169,7 +169,7 @@
 
     /**
      * compute the average of a Course object
-     * @param {Course} course 
+     * @param {Course} course
      */
     const computeCourseAverage = (course) => {
         let availableCP = 0;
@@ -199,12 +199,14 @@
      */
     const computeModuleAverage = (module) => {
         let totalCoeff = 0;
+        module.average = 0;
         for (const course of module.courses) {
             module.average += course.average * course.coefficient;
             totalCoeff += course.coefficient
         }
         if (totalCoeff > 0) {
-            module.average = Number((module.average / totalCoeff).toFixed(2));
+            module.average = (module.average / totalCoeff)
+            module.average = Number(module.average.toFixed(2));
         } else {
             module.average = undefined
         }
@@ -221,32 +223,32 @@
         // kinda forced due to composition
         grades.forEach(
             /**
-             * 
-             * @param {Year} year 
+             *
+             * @param {Year} year
              */
             (year) => {
                 year.semesters.forEach(
                     /**
-                     * 
-                     * @param {Semester} semester 
+                     *
+                     * @param {Semester} semester
                      */
                     (semester) => {
                         semester.modules.forEach(
                             /**
-                             * 
-                             * @param {Module} module 
+                             *
+                             * @param {Module} module
                              */
                             (module) => {
                                 module.courses.forEach(
                                     /**
-                                     * 
-                                     * @param {Course} course 
+                                     *
+                                     * @param {Course} course
                                      */
                                     (course) => {
                                         course.courseParts.forEach(
                                             /**
-                                             * 
-                                             * @param {CourseGradePart} coursePart 
+                                             *
+                                             * @param {CourseGradePart} coursePart
                                              */
                                             (cp) => {
                                                 cp = homogenizeCoursePartGradesWeight(cp);
