@@ -17,17 +17,17 @@
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name - The name of the course grade part. 
- * @property {number} weight - The weight of the course grade part.r} 
- * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {string} name - The name of the course grade part.
+ * @property {number} weight - The weight of the course grade part.r}
+ * @property {Array.<Grade>} grades - The grades of the course grade part.
  * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGrade} 
- * @property {string} name - The name of the course. 
- * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
- * @property {number} coefficient - The coefficient of the course. 
+ * @typedef {CourseGrade}
+ * @property {string} name - The name of the course.
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts.
+ * @property {number} coefficient - The coefficient of the course.
  * @property {number} average
  */
 
@@ -77,7 +77,7 @@
 
   /**
    * Extract the number of years in the table
-   * @param {HTMLTableElement} table 
+   * @param {HTMLTableElement} table
    * @returns {number} the number of years in the table
    */
   const extractYearsCount = (table) => {
@@ -87,7 +87,7 @@
 
   /**
    * Extract the grades from a string
-   * @param {string} str 
+   * @param {string} str
    * @returns {Array.<Grade>} the extracted grades from str
    */
   const extractGrades = (str) => {
@@ -119,7 +119,7 @@
 
   /**
    * Extracts a course part from a table row.
-   * 
+   *
    * @param {HTMLElement} coursePartRow - The table row containing the course part.
    * @returns {Object} - The extracted course part object.
    */
@@ -177,7 +177,7 @@
     return coursesRows.length;
   };
 
-  /** 
+  /**
    * Extract the course from the module rows
    * @param {Array.<HTMLTableRowElement>} moduleRows rows of the table corresponding to the module
    * @param {number} i module's index
@@ -209,9 +209,31 @@
     return course;
   };
 
+  const extractModuleInformation = (moduleRow) => {
+    return {
+      name: moduleRow.querySelector(".".concat(nameColumnClass)).innerText,
+    };
+  };
+
+  const extractModuleNumberFromTable = (semesterRows) => {
+    const rows = Array.from(semesterRows);
+    let modulesRows = rows.filter((row) =>
+      row.querySelector(".".concat(semesterAndModuleRowClass))
+    );
+    modulesRows = modulesRows.filter((row) => {
+      for (let i = 0; i < semesterStr.length; i++) {
+        if (!row.innerText.includes(semesterStr[i])) {
+          return true;
+        }
+      }
+      return false;
+    });
+    return modulesRows.length;
+  };
+
   /**
    * Extracts module information from a module row.
-   * 
+   *
    * @param {HTMLElement} moduleRow - The module row element.
    * @returns {Object} - The extracted module information.
    * @property {string} name - The name of the module.   * @property {number} average - The average grade of the module.
@@ -247,7 +269,7 @@
 
   /**
    * Extracts semester information from a given semester row.
-   * 
+   *
    * @param {HTMLElement} semesterRow - The HTML element representing the semester row.
    * @returns {Object} - An object containing the extracted semester information.
    * @property {string} name - The name of the semester.
@@ -260,7 +282,7 @@
 
   /**
    * Extracts the semester information from a table of year rows.
-   * 
+   *
    * @param {NodeList} yearRows - The list of year rows in the table.
    * @param {number} i - The index of the semester row to extract.
    * @returns {Object} - The extracted semester information, including modules.
@@ -291,7 +313,7 @@
       ...extractSemesterInformation(semesterRows[0]),
       modules: modules,
     }
-  };  
+  };
 
   /**
    * Extracts year information from a given year row.
