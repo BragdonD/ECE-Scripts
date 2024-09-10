@@ -17,17 +17,17 @@
 
 /**
  * @typedef {Object} CourseGradePart
- * @property {string} name - The name of the course grade part. 
- * @property {number} weight - The weight of the course grade part.r} 
- * @property {Array.<Grade>} grades - The grades of the course grade part.  
+ * @property {string} name - The name of the course grade part.
+ * @property {number} weight - The weight of the course grade part.r}
+ * @property {Array.<Grade>} grades - The grades of the course grade part.
  * @property {number} average - The average grade of the course grade part.
  */
 
 /**
- * @typedef {CourseGrade} 
- * @property {string} name - The name of the course. 
- * @property {Array.<CourseGradePart>} courseParts - The course grade parts. 
- * @property {number} coefficient - The coefficient of the course. 
+ * @typedef {CourseGrade}
+ * @property {string} name - The name of the course.
+ * @property {Array.<CourseGradePart>} courseParts - The course grade parts.
+ * @property {number} coefficient - The coefficient of the course.
  * @property {number} average
  */
 
@@ -98,9 +98,9 @@
             const newTd = document.createElement('td');
             newTd.classList.add(averageColCssClass);
             if (fc.classList.contains(coursePartClass)) {
-                newTd.classList.add(courseRowClass);
-            } else if (fc.classList.contains(courseRowClass)) {
                 newTd.classList.add(coursePartClass);
+            } else if (fc.classList.contains(courseRowClass)) {
+                newTd.classList.add(courseRowClass);
             } else {
                 newTd.classList.add(semesterAndModuleRowClass)
             }
@@ -111,7 +111,7 @@
 
     /**
      * Finds a course and module row by name in a table.
-     * 
+     *
      * @param {HTMLTableElement} table - The table to search in.
      * @param {string} name - The name to search for.
      * @returns {HTMLTableRowElement|null} - The found row or null if not found.
@@ -133,7 +133,7 @@
 
     /**
      * Finds a row in a table by the given course name and course part name.
-     * 
+     *
      * @param {HTMLTableElement} table - The table to search in.
      * @param {string} cname - The course name to search for.
      * @param {string} cpname - The course part name to search for.
@@ -159,7 +159,7 @@
 
     /**
      * Inserts a grade into a row.
-     * 
+     *
      * @param {HTMLElement} row - The row element where the grade will be inserted.
      * @param {string} grade - The grade to be inserted.
      * @returns {void}
@@ -172,10 +172,10 @@
         averageChild.textContent = grade;
     }
 
-    
+
     /**
      * Inserts grades into a table.
-     * 
+     *
      * @param {HTMLTableElement} table - The table element to insert grades into.
      * @param {Array<Year>} grades - An array of Year objects containing grades.
      * @returns {void}
@@ -184,32 +184,32 @@
         // kinda forced due to composition
         grades.forEach(
             /**
-             * 
-             * @param {Year} year 
+             *
+             * @param {Year} year
              */
             (year) => {
                 year.semesters.forEach(
                     /**
-                     * 
-                     * @param {Semester} semester 
+                     *
+                     * @param {Semester} semester
                      */
                     (semester) => {
                         semester.modules.forEach(
                             /**
-                             * 
-                             * @param {Module} module 
+                             *
+                             * @param {Module} module
                              */
                             (module) => {
                                 module.courses.forEach(
                                     /**
-                                     * 
-                                     * @param {Course} course 
+                                     *
+                                     * @param {Course} course
                                      */
                                     (course) => {
                                         course.courseParts.forEach(
                                             /**
-                                             * 
-                                             * @param {CourseGradePart} coursePart 
+                                             *
+                                             * @param {CourseGradePart} coursePart
                                              */
                                             (cp) => {
                                                 const row = findCoursePartRowByCourseName(table, course.name, cp.name);
@@ -228,8 +228,10 @@
                                 )
                                 const row = findCourseAndModuleRowByName(table, module.name);
                                 if (row == undefined) {
+
                                     return;
                                 }
+                                // console.log(module)
                                 insertGradeInRow(row, module.average)
                             }
                         );
@@ -254,5 +256,6 @@
         insertGradesInTable(table, grades);
         window.localStorage.removeItem(averageLocalStorage)
         window.localStorage.removeItem("grades")
+        window.dispatchEvent(new Event("display-grades"));
     });
 })();
