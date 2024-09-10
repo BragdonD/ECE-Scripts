@@ -14,6 +14,7 @@ var $ = window.jQuery;
 const ensStyle = `
 color: #fff !important;
 background-color: #376bc5;
+font-weight: bold !important;
 `;
 const ev1Style = `
 color: #000 !important;
@@ -22,6 +23,7 @@ background-color: #95bcff;
 const fpcStyle = `
 color: #000 !important;
 background-color: #619bff;
+font-weight: bold !important;
 `;
 
 function changeEnsStyle($ensElement) {
@@ -38,7 +40,11 @@ function changeFpcStyle($fpcElement) {
 
 (function() {
     'use strict';
-    $("#resultat-note").arrive("#table_note", function() {
+    const resultatsContainerId = "resultat-note";
+    const resultatsTableId = "table_note";
+
+    window.addEventListener("display-grades", () => {
+        const table = $("#".concat(resultatsTableId));
         changeEnsStyle($(".item-ens"));
         changeEv1Style($(".item-ev1"));
         changeFpcStyle($(".item-fpc"));
