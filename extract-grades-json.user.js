@@ -6,6 +6,12 @@
 // @author       BragdonD
 // @match        https://campusonline.inseec.net/note/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/arrive/2.4.1/arrive.min.js
+
+// @homepageURL   https://github.com/bragdond/ECE-Scripts
+// @supportURL    https://github.com/bragdond/ECE-Scripts/issues
+// @downloadURL   https://raw.githubusercontent.com/bragdond/ECE-Scripts/main/extract-grades-json.user.js
+// @updateURL     https://raw.githubusercontent.com/bragdond/ECE-Scripts/main/extract-grades-json.user.js
+
 // @grant        none
 // ==/UserScript==
 
